@@ -26,7 +26,8 @@ function App() {
         <Route path={ route('password-reset-request') } element={ <PasswordResetRequest /> } /> 
         <Route path={ route('password-reset') } element={ <PasswordReset /> } />
 
-        {/* Private Routes */}
+        {/* Private Routes */} 
+        
         <Route path={ route('home.index') } element={ <PrivateIndex /> } />
 
         {/* 404 */} 
