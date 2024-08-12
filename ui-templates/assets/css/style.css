@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body { 
+    min-width: 375px;
+    /* font-family: "Comfortaa", sans-serif; */
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+} 
+
+.border-radius-15 {
+    border-radius: 15px;
+} 
+
+.border-radius-35 {
+    border-radius: 35px;
+} 
+
+.border-shadow {
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 8px 0 var(--black-opacity-20), 0 6px 20px 0 var(--black-opacity-19);
+}
+
+.h-97 {
+    height: 97.5% !important;
+} 
+
+
+/* Scroll */ 
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #9f8e77;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #823c03;
+} 
+
+
+/* Search */
+
+ .search-container {
+     position: relative;
+     width: 300px;
+ }
+
+ .search-input {
+     width: 100%;
+     padding: 10px 20px 10px 40px;
+     /* Adjust padding to make room for the icon */
+     border: 1px solid #ccc;
+     border-radius: 20px;
+ }
+
+ .search-icon {
+     position: absolute;
+     top: 50%;
+     right: 10px;
+     transform: translateY(-50%);
+     color: #888; 
+     cursor: pointer;
+ }
+
+
+/** Neumorphism */
+.flat {
+    /* margin: auto; */
+    /* height: 160px;
+    width: 160px; */
+    /* border-radius: 50%; */
+    background: #f0f0f3;
+    box-shadow: -10px -10px 30px #fff, 10px 10px 30px #aeaec040;
+}
+
+.convex {
+    /* margin: auto; */
+    /* height: 160px;
+    width: 160px; */
+    /* border-radius: 50%; */
+    background: #f0f0f3;
+    box-shadow: -10px -10px 30px #fff, 10px 10px 30px #aeaec040, inset -10px -10px 10px #aeaec025, inset 10px 10px 10px #fff;
+}
+
+.concave {
+    /* margin: auto; */
+    /* height: 160px;
+    width: 160px; */
+    /* border-radius: 50%; */
+    background: #f0f0f3;
+    box-shadow: inset -10px -10px 10px #ffffff70, inset 10px 10px 10px #aeaec020;
+} 
+
+
+/* Table */ 
+
+.table-secondary {
+    --bs-table-bg: #f0f0f3;
+}
