@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeezysDeals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script> 
+
+    <style>
+        .speech-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:active {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body class="w-100 bg-body-secondary position-relative px-3"> 
+    <!--
+    <header class="d-flex justify-content-between align-items-center py-3">
+        <span>
+            <img src="./assets/images/deezysdeals.png" width="50" alt="">
+        </span> 
+        <ul class="d-flex justify-content-center align-items-center gap-2 ">
+            <li class="btn btn-sm btn-secondary border-radius-35">Home</li> 
+            <li class="btn btn-sm btn-outline-secondary border-radius-35">Categories</li> 
+            <li class="btn btn-sm btn-outline-secondary border-radius-35">Products</li> 
+            <li class="btn btn-sm btn-outline-secondary border-radius-35">About</li> 
+            <li class="btn btn-sm btn-outline-secondary rounded-circle d-flex justify-content-center align-items-center" style="width: 35px; height: 35px; margin-left: 20px;">
+                <img src="./assets/images/shopping-cart-svgrepo-com.svg" width="20" height="20" alt="" />
+            </li> 
+        </ul>
+    </header>
+-->
+
+    <main class="pt-3"> 
+        <div class="" style="background: url(./assets/images/IMG_3264.png); background-repeat: no-repeat; background-size: cover; width: 100%; height: 75vh;">
+            <section class="hero border-radius-35 d-block d-md-flex justify-content-between align-items-center gap-5 px-5 py-5">
+                <div class="d-none d-md-block">
+                    <ul class="list-unstyled d-flex flex-column align-items-center gap-3 glass w-100">
+                        <li class="btn btn-sm btn-light border-radius-35 fw-semibold px-4">All</li>
+                        <li class="btn btn-sm btn-light border-radius-35 fw-semibold px-4">Health</li>
+                        <li class="btn btn-sm btn-light border-radius-35 fw-semibold px-4">Clothings</li>
+                        <li class="btn btn-sm btn-light border-radius-35 fw-semibold px-4">Bags</li>
+                        <li class="d-flex align-items-center gap-1 btn btn-sm btn-outline-dark border-radius-35">
+                            <span class="text-nowrap fw-bold">Explore More</span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                </svg>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            
+                <div class="d-flex flex-column align-items-center justify-content-center" style="text-shadow: 1px 1px 2px #ffb171; max-width: 450px;">
+                    <h2 class="fw-bold fs-1">Let's Shop All-In-One</h2>
+                    <p class="fw-semibold">Visit Collectibles and Shop all in One Place from the Comfort of your Couch</p>
+                </div>
+            
+                <div class="d-flex flex-column align-items-end" style="max-width: 250px">
+                    <span class="btn btn-sm btn-dark border-radius-35 text-nowrap">Quality Service</span>
+                    <span>
+                        <div class="stars">
+                            <span class="fa-solid fa-star active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </span>
+                            <span class="fa-solid fa-star active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </span>
+                            <span class="fa-solid fa-star active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </span>
+                            <span class="fa-solid fa-star active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </span>
+                            <span class="fa-solid fa-star active">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-star-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                                </svg>
+                            </span>
+                        </div>
+                    </span>
+                    <span class="text-end">Fastest delivery I have ever had. These guys mean business!</span>
+                    <span class="text-end">-&nbsp;<small class="fst-italic">Jessica Hopkins</small></span>
+                </div> 
+
+               
+            </section>
+            
+            <section>
+                <div class="d-none d-md-block search-container">
+                    <input type="text" name="search" class="search-input border-0 concave" />
+                    <img src="../assets/images/search-lg-svgrepo-com.svg" alt="" width="23" class="search-icon" />
+                </div>
+
+                <!-- 
+                <div class="speech-container">
+                    <h1>Speech-to-Text Input</h1>
+                    <input type="text" id="textInput" placeholder="Your speech will appear here..." readonly>
+                    <button id="startButton">Start Speaking</button>
+                </div> 
+            -->
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="py-4 rounded my-2 d-flex align-items-center justify-content-end gap-5">
+        <span>&copy; 2024. <span class="fw-bold">DeezysDeals</span>.</span>
+    </footer> 
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const textInput = document.getElementById('textInput');
+
+        if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function () {
+                startButton.textContent = 'Listening...';
+                startButton.disabled = true;
+            };
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript;
+                textInput.value = transcript;
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error', event);
+            };
+
+            recognition.onend = function () {
+                startButton.textContent = 'Start Speaking';
+                startButton.disabled = false;
+            };
+
+            startButton.addEventListener('click', function () {
+                recognition.start();
+            });
+        } else {
+            startButton.textContent = 'Speech-to-Text Not Supported';
+            startButton.disabled = true;
+        }
+    </script>
+</body>
+
+</html>

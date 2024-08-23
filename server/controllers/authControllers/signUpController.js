@@ -8,7 +8,6 @@ import sendMail from '../../mails/sendMail.js';
 const signUpUser = asyncHandler(async (req, res) => {
     const { username, 
             first_name, 
-            other_names, 
             last_name, 
             enterprise_name, 
             email, 
@@ -43,8 +42,7 @@ const signUpUser = asyncHandler(async (req, res) => {
 
     const user = new User({
         username,
-        first_name,
-        other_names,
+        first_name, 
         last_name,
         enterprise_name,
         email,
@@ -56,7 +54,7 @@ const signUpUser = asyncHandler(async (req, res) => {
 
     user.save()
         .then(function () {
-            res.status(201).json({ message: `User ${user?.username} created` });
+            res.status(201).json({ success: `User ${user?.username} created` });
         })
         .catch(function (error) {
             return res.status(400).json({ message: "An error occured", details: `${error}` });

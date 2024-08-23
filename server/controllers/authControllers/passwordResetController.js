@@ -27,7 +27,7 @@ const mailPasswordResetLink = asyncHandler(async (req, res) => {
 
     await sendMail(process.env.EMAIL_ADDRESS, user.email, mailSubject, mailBody); 
 
-    res.status(200).json({ message: "Password reset link has been sent to your email if you have an account with us." });
+    res.status(200).json({ success: "Password reset link has been sent to your email if you have an account with us." });
 });
 
 const verifyMailedPasswordResetLink = asyncHandler(async (req, res) => {
@@ -52,7 +52,7 @@ const verifyMailedPasswordResetLink = asyncHandler(async (req, res) => {
 
     await user.save();
 
-    res.json({ message: "Password reset successfully" });
+    res.json({ success: "Password reset successfully" });
 });
 
 

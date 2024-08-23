@@ -17,7 +17,7 @@ import errorHandler from './middleware/errorHandler.js';
 import corsOptions from './config/corsOptions.js'; 
 import dbConnection from './config/dbConnect.js'; 
 import router from './routes/api.js'; 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 
 
 app.use(helmet()); 

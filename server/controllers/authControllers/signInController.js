@@ -7,9 +7,11 @@ const signInUser = asyncHandler(async (req, res) => {
     const { email_username,  
 		    password } = req?.body;
 
-    const userFound = await User.findOne({ $or: [{ username: email_username }, { email: email_username }]}).exec();
+    const userFound = await User.findOne({ $or: [{ username: email_username }, { email: email_username }]}).exec(); 
 
-    const match = await userFound.matchPassword(password);
+    if (!userFound) return res.status(401).json({ message: "Unauthorized" }); 
+
+    const match = await userFound?.matchPassword(password);
 
     if (!match) return res.status(401).json({ message: "Unauthorized" }); 
 

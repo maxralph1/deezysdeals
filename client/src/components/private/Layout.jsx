@@ -4,6 +4,7 @@ import Header from '@/components/private/Header.jsx';
 import SideBar from '@/components/private/SideBar.jsx';
 import Footer from '@/components/private/Footer.jsx'; 
 import UserImage from '@/assets/images/IMG_3264.png'; 
+import '@/assets/css/dashboard.css'
 
 
 export default function Layout({ children }) { 

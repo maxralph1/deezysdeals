@@ -1,105 +1,478 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeezysDeals</title>
+    <title>Document</title> 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/index.css" />
 </head>
+<body> 
+    <section class="social d-flex justify-content-end gap-3 pb-2 border-bottom mb-3" style="margin-top: -2rem;">
+        <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-tiktok text-black" viewBox="0 0 16 16">
+                <path
+                    d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+            </svg>
+        </a>
+        <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-instagram text-black" viewBox="0 0 16 16">
+                <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+            </svg>
+        </a>
+        <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-facebook text-black" viewBox="0 0 16 16">
+                <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+            </svg>
+        </a>
+        <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-twitter-x text-black" viewBox="0 0 16 16">
+                <path
+                    d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+            </svg>
+        </a>
+    </section>
+    
+    <header class="top-nav">
+        <h1 class="fs-3 fw-bold">DeezysDeals</h1> 
+        <nav>
+            <ul class="list-unstyled">
+                <li>Home</li>
+                <li>Category</li>
+                <li>Products</li>
+                <li>Support</li>
+            </ul> 
 
-<body class="w-100 bg-body-secondary position-relative px-3">
-    <header class="">
-        <div class="icons border-bottom">
-            <ul class="list-unstyled d-flex gap-3 pt-2">
-                <li class="instagram concave">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-instagram"
+            <!-- 
+            <span class="bg-dark d-flex justify-content-center align-items-center" style="height: 35px; width:35px; border-radius: 50px;">
+                <img src="./assets/images/shopping-cart-svgrepo-com.svg" width="25" height="25" alt="" class="text-white">
+            </span> 
+            -->
+
+            <span class="" >
+                <img src="./assets/images/shopping-cart-svgrepo-com.svg" width="25" height="25" alt="" class="text-white">
+            </span>
+        </nav> 
+
+        <span class="mobile-toggle-button">
+            <img src="./assets/images/list-1-svgrepo-com.svg" alt="" width="25">
+        </span>
+    </header> 
+
+    <main>
+        <section class="hero">
+            <div class="intro">
+                <div class="brief-categories">
+                    <ul class="list-unstyled">
+                        <li>Health</li>
+                        <li>Electronics</li>
+                        <li>Fashion</li>
+                        <li>Automobile</li> 
+                        <li class="d-flex align-items-center gap-1 btn btn-sm btn-outline-dark border-radius-35 mt-4">
+                            <span class="text-nowrap fw-bold">Explore More</span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                </svg>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="main">
+                    <h2>Your <span class="text-nowrap">One-Stop</span> Shop</h2>
+                    <p>Shop all in one place from the comfort of your home.</p> 
+                    <div class="shop-now m-auto">
+                        <span class="btn btn-sm btn-dark border-radius-35">
+                            <span>Shop Now</span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-arrow-right-circle-fill text-white" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                </svg>
+                            </span>
+                        </span>
+                    </div> 
+                </div>
+                
+                <div class="rating">
+                    <span class="heading fw-semibold">Best Service</span>
+                    <span class="stars pe-1">
+                        <span class="fa-solid fa-star active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>
+                        </span>
+                        <span class="fa-solid fa-star active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>
+                        </span>
+                        <span class="fa-solid fa-star active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>
+                        </span>
+                        <span class="fa-solid fa-star active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>
+                        </span>
+                        <span class="fa-solid fa-star active">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" />
+                            </svg>
+                        </span>
+                    </span> 
+                    <span class="text">I've never seen anything like this! Awesome delivery speed!</span>
+                    <span class="client">-&nbsp;<small class="fst-italic">Julia Hopkins</small></span>
+                </div>
+            </div> 
+        </section>  
+
+        <section class="search">
+            <div class="search-container">
+                <span class="voice-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill"
+                        viewBox="0 0 16 16">
+                        <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
+                        <path
+                            d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search products"> 
+                <span class="search-icon"><img src="./assets/images/search-lg-svgrepo-com.svg" alt="" width="16"></span>
+            </div>
+        </section> 
+
+        <section class="new-arrivals">
+            <h3 class="fw-semibold">New Arrivals</h3>
+        
+            <div class="nav-scroller py-1 mb-3">
+                <nav class="nav justify-content-between py-3">
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Electronics</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Health</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Automobile</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Jewelries</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Shoes</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Bags</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Fashion</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="trending bg-dark">
+            <header class="heading d-flex align-items-center justify-content-start gap-3">
+                <h3 class="mt-2">Trending</h3> |
+                <span class="d-flex align-items-center gap-1">
+                    <span class="mt-1">See All</span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle-fill"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                        </svg>
+                    </span>
+                </span>
+            </header> 
+
+            <div class="products gap-5"> 
+                <div class="nav-scroller py-1 mb-3">
+                    <nav class="nav justify-content-between py-3">
+
+                        <article style="background: url(./assets/images/IMG_3264.png); background-repeat: no-repeat; background-size: cover">
+                            <h4 class="fw-bold">Red Socks</h4>
+
+                            <div class="buy">
+                                <div class="price fw-bold">
+                                    <span class="old-price"><small>8.99$</small></span>
+                                    <span class="new-price">5.99$</span>
+                                </div> 
+
+                                <div class="actions">
+                                    <span><img src="./assets/images/heart-alt-svgrepo-com.svg" alt="" width="25"></span>
+                                    <span><img src="./assets/images/shopping-cart-svgrepo-com.svg" alt="" width="25"></span>
+                                </div>
+                            </div>
+                        </article>
+                        <article style="background: url(./assets/images/IMG_3264.png); background-repeat: no-repeat; background-size: cover">
+                            <h4 class="fw-bold">Red Socks</h4>
+
+                            <div class="buy">
+                                <div class="price fw-bold">
+                                    <span class="old-price"><small>8.99$</small></span>
+                                    <span class="new-price">5.99$</span>
+                                </div> 
+
+                                <div class="actions">
+                                    <span><img src="./assets/images/heart-alt-svgrepo-com.svg" alt="" width="25"></span>
+                                    <span><img src="./assets/images/shopping-cart-svgrepo-com.svg" alt="" width="25"></span>
+                                </div>
+                            </div>
+                        </article>
+                        <article style="background: url(./assets/images/IMG_3264.png); background-repeat: no-repeat; background-size: cover">
+                            <h4 class="fw-bold">Red Socks</h4>
+
+                            <div class="buy">
+                                <div class="price fw-bold">
+                                    <span class="old-price"><small>8.99$</small></span>
+                                    <span class="new-price">5.99$</span>
+                                </div> 
+
+                                <div class="actions">
+                                    <span><img src="./assets/images/heart-alt-svgrepo-com.svg" alt="" width="25"></span>
+                                    <span><img src="./assets/images/shopping-cart-svgrepo-com.svg" alt="" width="25"></span>
+                                </div>
+                            </div>
+                        </article> 
+
+                    </nav> 
+                </div>
+            </div>
+        </section> 
+
+        <section class="brands d-flex flex-wrap justify-content-between align-items-center flex-wrap gap-3">
+            <div class="text d-flex flex-column">
+                <h3>Luxury on your mind?</h3> 
+                <p>Quality, technology; browse the top brands</p> 
+                <div class="search-container border border-dark">
+                    <span class="voice-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill"
+                            viewBox="0 0 16 16">
+                            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
+                            <path
+                                d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Search brands">
+                    <span class="search-icon"><img src="./assets/images/search-lg-svgrepo-com.svg" alt="" width="16"></span>
+                </div>
+            </div> 
+
+            <div class="categories" style="min-width: 350px; max-width: 400px; background: url(./assets/images/IMG_3264.png); background-size: cover; background-repeat: no-repeat">
+                <ul class="list-unstyled">
+                    <li>Nike</li>
+                    <li>Sony</li>
+                    <li>Adidas</li>
+                    <li>Johnson</li> 
+                    <li class="d-flex align-items-center gap-1 btn btn-sm btn-outline-dark border-radius-35 mt-4">
+                        <span class="text-nowrap fw-bold">Explore More</span>
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                            </svg>
+                        </span>
+                    </li>
+                </ul>
+            </div> 
+
+        </section> 
+
+        <section class="popular-categories">
+            <h3>Popular Categories</h3>
+        
+            <div class="nav-scroller py-1 mb-3">
+                <nav class="nav justify-content-between py-3">
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Electronics</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Health</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Automobile</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Jewelries</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Shoes</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Bags</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                    <a href="#" class="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3" href="#">
+                        <span class="title">Fashion</span>
+                        <span>
+                            <img src="./assets/images/deezysdeals.png" alt="" width="100" height="150"
+                                class="object-fit-cover" />
+                        </span>
+                    </a>
+                </nav>
+            </div>
+        </section>
+
+
+    </main> 
+
+    <footer class="bg-dark text-white">
+        <div class="intro d-flex flex-column" style="background: url(./assets/images/IMG_3264.png); background-size: cover; height: 50vh;">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 h-100">
+                <div class="d-flex flex-column m-auto gap-2">
+                    <span class="text-dark fw-semibold">Get it Before Everyone Else</span>
+                    <div class="search-container border border-dark">
+                        <input type="text" placeholder="Email address">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-arrow-right-circle-fill text-dark" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div> 
+
+                <div class="shop-now m-auto">
+                    <span class="btn btn-sm btn-dark border-radius-35">
+                        <span>Shop Now</span> 
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right-circle-fill text-white" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                            </svg>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div> 
+        
+        <section class="contact d-flex justify-content-between py-4 px-3">
+            <div class="d-flex flex-column gap-2">
+                <span>
+                    <a href="#" class="text-decoration-none text-white">About</a>
+                </span>
+                <span>
+                    <a href="#" class="text-decoration-none text-white">Contact</a>
+                </span>
+            </div> 
+
+            <div class="d-flex flex-column text-center">
+                <span class="fw-semibold">DeezysDeals</span>
+                <span><small>Best shopping experience</small></span>
+            </div> 
+
+            <section class="social d-flex gap-2"> 
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tiktok text-white"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z" />
+                    </svg>
+                </a> 
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram text-white"
                         viewBox="0 0 16 16">
                         <path
                             d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
                     </svg>
-                </li>
-                <li class="twitter-x">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-twitter-x"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
-                    </svg>
-                </li> 
-                <li class="facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-facebook"
+                </a>
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook text-white"
                         viewBox="0 0 16 16">
                         <path
                             d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
                     </svg>
-                </li>
-            </ul>
-        </div>
-        
-        <div class="d-flex justify-content-between align-items-center py-2">
-            <span><img src="./assets/images/list-1-svgrepo-com.svg" alt="" width="25" style="margin-top: -1rem;" /></span>
-            <span><img src="./assets/images/deezysdeals.png" alt="Logo" width="20"></span>
-            <span>
-                <ul class="list-unstyled d-flex align-items-center gap-3">
-                    <li><a href="#" class="text-decoration-none text-dark fw-semibold">About</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark fw-semibold">FAQ</a></li>
-                    <li>
-                        <ul class="list-unstyled d-flex align-items-center gap-3">
-                            <li><img src="./assets/images/shopping-cart-svgrepo-com.svg" alt="" width="20" /></li>
-                            <li><img src="./assets/images/deezysdeals.png" alt="" width="20" class="rounded-circle" /></li>
-                        </ul>
-                    </li>
-                </ul>
-            </span>
-        </div>
-    </header>
+                </a>
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x text-white"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                    </svg>
+                </a>
+            </section>
+        </section> 
 
-    <!--
-    <nav>
-        <ul class="list-unstyled d-flex gap-2">
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">Categories +</a></li>
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">New Products +</a></li>
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">Men</a></li>
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">Women</a></li>
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">Children</a></li>
-            <li><a href="#" class="text-decoration-none text-dark btn btn-sm btn-outline-secondary border-radius-35">Brand</a></li>
-        </ul>
-    </nav> 
-    -->
-
-    <div class="nav-scroller py-1 mb-3 border-bottom">
-        <nav class="nav nav-underline justify-content-between">
-            <a class="nav-item nav-link link-body-emphasis active" href="#">Categories</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">New Products</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Men</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Women</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Children</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Electronics</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Bags</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Cosmetics</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Jewelries</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Sports</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Clothings</a>
-            <a class="nav-item nav-link link-body-emphasis" href="#">Shoes</a>
-        </nav>
-    </div>
-
-    <main class="pt-3">
-        <section class="hero w-100">
-            <div class="h-50">
-                <img src="./assets/images/IMG_3264.png" alt="" style="height: 425px;" class="w-100 object-fit-cover border-radius-35">
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-4 rounded my-2 d-flex align-items-center justify-content-end gap-5">
-        <span>&copy; 2024. <span class="fw-bold">DeezysDeals</span>.</span>
+        <section class="px-3 py-4">Copyright &copy; 2024. <span class="fw-bold">DeezysDeals</span>.</section>
     </footer>
 </body>
-
 </html>

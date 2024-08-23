@@ -8,7 +8,7 @@ const userSchema = new Schema({
             type: String, 
             minLength: 3, 
             maxLength: 15, 
-            unique: true, 
+            unique: [true, 'Username is already taken'], 
             required: true
         }, 
         first_name: { 
@@ -38,8 +38,9 @@ const userSchema = new Schema({
         }, 
         phone: { 
             type: String, 
-            required: [true, 'Phone number is required'], 
+            // required: [true, 'Phone number is required'], 
             unique: true, 
+            sparse: true, 
             validate: {
                 validator: function(phone) {
                     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
@@ -52,9 +53,10 @@ const userSchema = new Schema({
             type: String, 
             required: true 
         }, 
-        email_verified: Date, 
-        password_reset_token: String, 
         email_verify_token: String, 
+        email_verified: Date, 
+        auth_token: String, 
+        password_reset_token: String, 
         verified: { type: Boolean, default: false }, 
         verified_by: { type: Schema.Types.ObjectId, ref: 'User' }, 
         online: { type: Boolean, default: false }, 
