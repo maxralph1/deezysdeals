@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom'; 
 import { route } from '@/routes'; 
+import { useProducts } from '@/hooks/useProducts.jsx'; 
 import Layout from '@/components/private/Layout.jsx'; 
 
-export default function Index() {
+export default function Index() { 
+    const { products, getProducts } = useProducts(); 
+
+    console.log(products); 
+
     return (
         <Layout>
             <section className="pt-4 px-3 bg-body-tertiary rounded">

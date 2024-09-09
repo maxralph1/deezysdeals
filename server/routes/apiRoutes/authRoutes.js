@@ -8,6 +8,7 @@ import refreshTokenHandler from '../../controllers/authControllers/refreshTokenC
 import signOutUser from '../../controllers/authControllers/signOutController.js'; 
 import { mailPasswordResetLink, verifyMailedPasswordResetLink } from '../../controllers/authControllers/passwordResetController.js';  
 import signInLimiter from '../../middleware/loginLimiter.js'; 
+import authenticated from '../../middleware/authenticated.js'; 
 
 
 authRouter.post('/sign-up', signUpUser); 
@@ -15,7 +16,7 @@ authRouter.post('/verify-email/:username/:token', verifyMailLinkAuthenticate);
 authRouter.post('/sign-in', signInLimiter, signInUser); 
 authRouter.post('/passwordless-signin-request', passwordlessSignInRequest); 
 authRouter.post('/passwordless-signin/:username/:token', passwordlessSignIn); 
-authRouter.post('/refresh-token', refreshTokenHandler); 
+authRouter.post('/refresh-token', authenticated, refreshTokenHandler); 
 authRouter.post('/sign-out', signOutUser); 
 authRouter.post('/password-reset', mailPasswordResetLink); 
 authRouter.post('/password-reset/:username/:token', verifyMailedPasswordResetLink); 

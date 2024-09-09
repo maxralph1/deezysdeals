@@ -5,6 +5,9 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()], 
+  server: {
+    port: parseInt(process.env.VITE_PORT) || 5174,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

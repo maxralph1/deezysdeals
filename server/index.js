@@ -1,7 +1,9 @@
-import 'dotenv/config'; 
-// import 'express-async-errors';
+
 import express, { json, urlencoded, static as expressStatic } from 'express'; 
 const app = express(); 
+// import 'express-async-errors';
+import dotenv from 'dotenv';
+dotenv.config();
 import helmet from "helmet"; 
 import morgan from 'morgan';
 import { rateLimit } from 'express-rate-limit'; 
@@ -17,7 +19,7 @@ import errorHandler from './middleware/errorHandler.js';
 import corsOptions from './config/corsOptions.js'; 
 import dbConnection from './config/dbConnect.js'; 
 import router from './routes/api.js'; 
-const PORT = process.env.PORT || 5000; 
+const PORT = process.env.PORT || 5001; 
 
 
 app.use(helmet()); 
