@@ -1,26 +1,7 @@
-import { Link, useLocation } from 'react-router-dom'; 
-import { route } from '@/routes'; 
-import Header from '@/components/public/Header.jsx';
-// import SideBar from '@/components/public/SideBar.jsx';
-import Footer from '@/components/public/Footer.jsx'; 
-import '@/assets/css/public.css'
+import React from 'react'
 
-export default function Layout({ children }) { 
-    const location = useLocation(); 
-
+export default function Layout() {
     return (
-        <> 
-
-            <Header />
-
-            <main>
-
-                { children }
-
-            </main> 
-
-            <Footer />
-
-        </>
+        <div>Layout</div>
     )
 }
