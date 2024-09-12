@@ -154,7 +154,7 @@
     overflow-y: hidden;
 }
 
-.nav-scroller .nav {
+.nav-scroller .nav { 
     display: flex;
     gap: 3rem;
     flex-wrap: nowrap;

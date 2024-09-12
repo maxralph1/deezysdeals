@@ -1,55 +1,66 @@
-import React from 'react'
+import { useState } from 'react'; 
+
 
 export default function Footer() {
+    const [helpToggle, setHelpToggle] = useState(false); 
+    const [cartToggle, setCartToggle] = useState(false); 
+
     return (
         <footer className="footer pt-5 px-3 z-2">
-            <section className="help">
-                <div id="help-box" className="help-box card p-3 d-none">
-                    <section>
-                        <h4 className="fw-bold border-bottom">Chat with our AI HelpDesk</h4>
-                    </section>
-                    <section className="messages border-bottom w-100">
-                        <div className="d-flex flex-column gap-2 pt-2 pb-3">
-                            <article className="w-100 d-flex justify-content-start bg-dark rounded text-white text-start p-3 pe-5">
-                                <span className="text-start">How may we help you today?</span>
-                            </article>
-                            
-                            <article className="w-100 d-flex justify-content-end bg-body-tertiary rounded p-3 ps-5">
-                                <span className="text-end">I need to set up my account</span>
-                            </article> 
+            <section className="help"> 
 
-                            <article className="w-100 d-flex justify-content-start bg-dark rounded text-white text-start p-3 pe-5">
-                                <span className="text-start">How may we help you today?</span>
-                            </article>
-                            
-                            <article className="w-100 d-flex justify-content-end bg-body-tertiary rounded p-3 ps-5">
-                                <span className="text-end">I need to set up my account</span>
-                            </article>
-                        </div> 
-                        <div className="email-option mx-4 p-1 rounded bg-secondary text-white my-2">
-                            <span className="w-75">Not satisfied with our AI response? <a href="#" className="text-decoration-none text-white fw-semibold">Email us</a>.</span>
-                        </div>
-                    </section> 
+                { helpToggle && 
+                    <div id="help-box" className="help-box card p-3">
+                        <section>
+                            <h4 className="fw-bold border-bottom">Chat with our AI HelpDesk</h4>
+                        </section>
+                        <section className="messages border-bottom w-100">
+                            <div className="d-flex flex-column gap-2 pt-2 pb-3">
+                                <article className="w-100 d-flex justify-content-start bg-dark rounded text-white text-start p-3 pe-5">
+                                    <span className="text-start">How may we help you today?</span>
+                                </article>
+                                
+                                <article className="w-100 d-flex justify-content-end bg-body-tertiary rounded p-3 ps-5">
+                                    <span className="text-end">I need to set up my account</span>
+                                </article> 
 
-                    <section> 
-                        <form action="" className="w-100 pt-3 d-flex justify-content-between align-items-center gap-1">
-                            <div>
-                                <div className="">
-                                    <textarea className="form-control" placeholder="Ask our AI  ..." id="message" style="height: 50px"></textarea>
-                                </div>
+                                <article className="w-100 d-flex justify-content-start bg-dark rounded text-white text-start p-3 pe-5">
+                                    <span className="text-start">How may we help you today?</span>
+                                </article>
+                                
+                                <article className="w-100 d-flex justify-content-end bg-body-tertiary rounded p-3 ps-5">
+                                    <span className="text-end">I need to set up my account</span>
+                                </article>
                             </div> 
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-arrow-right-circle-fill"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                                </svg>
-                            </div> 
-                        </form>
-                    </section>
-                </div> 
+                            <div className="email-option mx-4 p-1 rounded bg-secondary text-white my-2">
+                                <span className="w-75">Not satisfied with our AI response? <a href="#" className="text-decoration-none text-white fw-semibold">Email us</a>.</span>
+                            </div>
+                        </section> 
 
-                <div id="help-btn" className="help-btn cursor-pointer d-flex align-items-center gap-1">
+                        <section> 
+                            <form action="" className="w-100 pt-3 d-flex justify-content-between align-items-center gap-1">
+                                <div>
+                                    <div className="">
+                                        <textarea className="form-control" placeholder="Ask our AI  ..." id="message" style={{ height: '50px' }}></textarea>
+                                    </div>
+                                </div> 
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-arrow-right-circle-fill"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                    </svg>
+                                </div> 
+                            </form>
+                        </section>
+                    </div> 
+                }
+
+                <div 
+                    type="button" 
+                    onClick={ () => setHelpToggle(!helpToggle) }
+                    id="help-btn" 
+                    className="help-btn cursor-pointer d-flex align-items-center gap-1">
                     <span className="text text-white">
                         Help
                     </span> 
@@ -63,16 +74,169 @@ export default function Footer() {
                 </div>
             </section> 
 
-            <section className="cart">
-                <div id="cart-box" className="cart-box card p-2 d-none"> 
-                    <div className="position-sticky top-0">
-                        <div className="w-100 d-flex justify-content-between align-items-center py-3 px-2 gap-2">
-                            <div className="d-flex align-items-center gap-1">
-                                <h4 className="fs-6 fw-semibold mb-0">Cart Items</h4>
-                                <span className="mb-0 badge rounded-pill text-bg-success">2</span>
+            <section className="cart"> 
+
+                { cartToggle && 
+                    <div id="cart-box" className="cart-box card p-2"> 
+                        <div className="position-sticky top-0">
+                            <div className="w-100 d-flex justify-content-between align-items-center py-3 px-2 gap-2">
+                                <div className="d-flex align-items-center gap-1">
+                                    <h4 className="fs-6 fw-semibold mb-0">Cart Items</h4>
+                                    <span className="mb-0 badge rounded-pill text-bg-success">2</span>
+                                </div>
+                                <div className="cursor-pointer d-flex align-items-center gap-2 text-bg-dark rounded py-2 px-2 mb-0">
+                                    <span className="fw-bold">$2,750.00</span>
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                            className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                        </svg>
+                                    </span>
+                                </div>
                             </div>
-                            <div className="cursor-pointer d-flex align-items-center gap-2 text-bg-dark rounded py-2 px-2 mb-0">
-                                <span className="fw-bold">$2,750.00</span>
+                        </div>
+                        
+                        <div className="cart-items">
+                            <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
+                                <div className="col-4">
+                                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        alt="" style={{ width: '75px', height: '100px' }} className="rounded d-block object-fit-contain" />
+                                </div>
+                                <div className="col-8 d-flex flex-column">
+                                    <div className="text pb-1">
+                                        <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
+                                        <p className="item-description">An elegant, classic of highest quality ...</p>
+                                        <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
+                                    </div>
+                                    <div className="w-100 d-flex justify-content-between gap-1">
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="border border-secondary px-3 border-radius-35">
+                                            30
+                                        </span>
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="ps-2">
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                            
+                            <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
+                                <div className="col-4">
+                                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        alt="" style={{ width: '75px', height: '100px' }} className="rounded d-block object-fit-contain" />
+                                </div>
+                                <div className="col-8 d-flex flex-column">
+                                    <div className="text pb-1">
+                                        <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
+                                        <p className="item-description">An elegant, classic of highest quality ...</p>
+                                        <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
+                                    </div>
+                                    <div className="w-100 d-flex justify-content-between gap-1">
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="border border-secondary px-3 border-radius-35">
+                                            30
+                                        </span>
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="ps-2">
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                            
+                            <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
+                                <div className="col-4">
+                                    <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        alt="" style={{ width: '75px', height: '100px' }} className="rounded d-block object-fit-contain" />
+                                </div>
+                                <div className="col-8 d-flex flex-column">
+                                    <div className="text pb-1">
+                                        <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
+                                        <p className="item-description">An elegant, classic of highest quality ...</p>
+                                        <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
+                                    </div>
+                                    <div className="w-100 d-flex justify-content-between gap-1">
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="border border-secondary px-3 border-radius-35">
+                                            30
+                                        </span>
+                                        <span>
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                        <span className="ps-2">
+                                            <a href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                    className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div> 
+
+                        <div className="cart-footer bg-white border rounded py-4 px-3">
+                            <div className="checkout d-flex justify-content-between align-items-center">
+                                <span className="fw-bold">$2,750</span>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                         className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
@@ -82,160 +246,14 @@ export default function Footer() {
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div className="cart-items">
-                        <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
-                            <div className="col-4">
-                                <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                    alt="" style="width: 75px; height: 100px" className="rounded d-block object-fit-contain" />
-                            </div>
-                            <div className="col-8 d-flex flex-column">
-                                <div className="text pb-1">
-                                    <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
-                                    <p className="item-description">An elegant, classic of highest quality ...</p>
-                                    <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
-                                </div>
-                                <div className="w-100 d-flex justify-content-between gap-1">
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="border border-secondary px-3 border-radius-35">
-                                        30
-                                    </span>
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="ps-2">
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
-                            <div className="col-4">
-                                <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                    alt="" style="width: 75px; height: 100px" className="rounded d-block object-fit-contain" />
-                            </div>
-                            <div className="col-8 d-flex flex-column">
-                                <div className="text pb-1">
-                                    <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
-                                    <p className="item-description">An elegant, classic of highest quality ...</p>
-                                    <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
-                                </div>
-                                <div className="w-100 d-flex justify-content-between gap-1">
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="border border-secondary px-3 border-radius-35">
-                                        30
-                                    </span>
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="ps-2">
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </article>
-                        
-                        <article className="item row align-items-center m-2 py-2 bg-body-tertiary rounded">
-                            <div className="col-4">
-                                <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                    alt="" style="width: 75px; height: 100px" className="rounded d-block object-fit-contain" />
-                            </div>
-                            <div className="col-8 d-flex flex-column">
-                                <div className="text pb-1">
-                                    <h5 className="item-title fw-semibold">Hard Beans Brasil Espresso</h5>
-                                    <p className="item-description">An elegant, classic of highest quality ...</p>
-                                    <p className="item-amount"><s className="">$275</s>&nbsp;<span className="fw-semibold text-success">$250.00</span></p>
-                                </div>
-                                <div className="w-100 d-flex justify-content-between gap-1">
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-dash-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="border border-secondary px-3 border-radius-35">
-                                        30
-                                    </span>
-                                    <span>
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-plus-circle-fill text-secondary" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                    <span className="ps-2">
-                                        <a href="#">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                className="bi bi-trash2-fill text-danger" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
-                                            </svg>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                        </article>
                     </div> 
+                }
 
-                    <div className="cart-footer bg-white border rounded py-4 px-3">
-                        <div className="checkout d-flex justify-content-between align-items-center">
-                            <span className="fw-bold">$2,750</span>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="cart-btn" className="cart-btn cursor-pointer">
+                <div 
+                    type="button" 
+                    onClick={ () => setCartToggle(!cartToggle) } 
+                    id="cart-btn" 
+                    className="cart-btn cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-handbag-fill text-white"
                         viewBox="0 0 16 16">
                         <path
@@ -246,10 +264,10 @@ export default function Footer() {
 
             <section className="footer-end bg-dark text-white">
                 <div className="header d-flex flex-column"
-                    style="background: url(https://plus.unsplash.com/premium_photo-1682435561654-20d84cef00eb?q=80&w=1018&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-size: cover; background-repeat: no-repeat; height: 30vh; border-radius: 35px 35px 0 0;" >
+                    style={{ background: 'url(https://plus.unsplash.com/premium_photo-1682435561654-20d84cef00eb?q=80&w=1018&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '30vh', borderRadius: '35px 35px 0 0' }} >
                     <div className="d-flex align-items-center justify-content-between flex-wrap column-gap-3 row-gap-1 h-100 px-3">
                         <div className="d-flex flex-column m-auto gap-2">
-                            <span className="text-dark fw-bold" style="text-shadow: 1px 1px white, -1px -1px white;">Get it Before Everyone Else</span>
+                            <span className="text-dark fw-bold" style={{ textShadow: '1px 1px white, -1px -1px white' }}>Get it Before Everyone Else</span>
                             <div className="search-container border border-dark">
                                 <input type="text" placeholder="Email address" />
                                 <span>

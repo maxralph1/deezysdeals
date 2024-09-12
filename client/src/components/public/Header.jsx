@@ -1,6 +1,13 @@
-import React from 'react'
+import { useState } from 'react'; 
+import { Link, useLocation } from 'react-router-dom'; 
+import { route } from '@/routes'; 
+import NavBarUserOptions from './nested-components/NavBarUserOptions';
 
-export default function Header() {
+
+export default function Header() { 
+    const location = useLocation();
+    const [navToggle, setNavToggle] = useState(true); 
+    
     return (
         <header className="d-flex flex-column container-fluid z-3">
             <section className="socials pt-2 pe-4">
@@ -47,30 +54,30 @@ export default function Header() {
             <section className="main-header d-flex justify-content-between align-items-center bg-dark bg-gradient px-4">
                 <h1 className="fs-4 fw-bold text-white mt-1">DeezysDeals</h1> 
 
-                <nav className="main-nav d-none d-md-flex" id="nav"> 
+                <nav className={`main-nav ${navToggle && `d-none`} d-md-flex`} id="nav"> 
                     <ul className="list-unstyled gap-3 cursor-pointer">
                         <li className="fw-bold">
-                            <a href="./index.html" className="text-decoration-none">
+                            <Link to={ route('index') } className="text-decoration-none">
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li className="fw-bold">
-                            <a href="./dashboard/index.html" className="text-decoration-none">
+                            <Link to={ route('home.index') } className="text-decoration-none">
                                 Dashboard
-                            </a>
+                            </Link>
                         </li>
                         <li className="fw-bold">
-                            <a href="./products.html" className="text-decoration-none">
+                            <Link to={ route('products.index') } className="text-decoration-none">
                                 Products
-                            </a>
+                            </Link>
                         </li>
                         <li className="fw-bold">
-                            <a href="./categories.html" className="text-decoration-none">
+                            <Link to={ route('categories.index') } className="text-decoration-none">
                                 Categories
-                            </a>
+                            </Link>
                         </li>
                         <li className="fw-bold"> 
-                            <a href="./cart.html" className="text-decoration-none d-flex align-items-center justify-content-end">
+                            <Link to={ route('cart') } className="text-decoration-none d-flex align-items-center justify-content-end">
                                 <span className="d-block d-md-none">
                                     Cart
                                 </span>&nbsp;
@@ -81,10 +88,10 @@ export default function Header() {
                                             d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
                                     </svg>
                                 </span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="fw-bold"> 
-                            <a href="./auth.html" className="text-decoration-none d-flex align-items-center justify-content-end">
+                            <Link to={ route('sign-in') } className="text-decoration-none d-flex align-items-center justify-content-end">
                                 <span className="d-block d-md-none">
                                     Sign In/Out
                                 </span>&nbsp; 
@@ -93,65 +100,42 @@ export default function Header() {
                                     <path
                                         d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5v-1a2 2 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693Q8.844 9.002 8 9c-5 0-6 3-6 4m7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1" />
                                 </svg>
-                            </a> 
+                            </Link> 
                         </li> 
-                        <li className="d-none d-md-inline">
-                            <span className="position-relative">
-                                <span id="user-icon" className="user">
-                                    <img src="https://plus.unsplash.com/premium_photo-1683140621573-233422bfc7f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                        alt="" className="object-fit-cover border border-2"
-                                        style="height: 25px; width: 25px; border-radius: 50px;" />
-                                </span>
-                    
-                                <div id="user-options"
-                                    className="user-options position-absolute bg-white p-3 border border-1 rounded text-nowrap hidden"
-                                    style="top: 40px; right:0;">
-                                    <ul className="list-unstyled d-flex flex-column gap-3">
-                                        <li className="text-dark">
-                                            <a href="./dashboard/index.html" className="text-decoration-none text-dark d-flex justify-content-end gap-1">
-                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 18V15" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path
-                                                        d="M10.07 2.81997L3.14002 8.36997C2.36002 8.98997 1.86002 10.3 2.03002 11.28L3.36002 19.24C3.60002 20.66 4.96002 21.81 6.40002 21.81H17.6C19.03 21.81 20.4 20.65 20.64 19.24L21.97 11.28C22.13 10.3 21.63 8.98997 20.86 8.36997L13.93 2.82997C12.86 1.96997 11.13 1.96997 10.07 2.81997Z"
-                                                        stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                <span>
-                                                    Dashboard
-                                                </span>
-                                            </a>
-                                        </li>
-                                        <li className="text-dark d-flex justify-content-end gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                                className="bi bi-gear-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
-                                            </svg>
-                                            <span>
-                                                Settings
-                                            </span>
-                                        </li>
-                                        <li className="text-danger d-flex justify-content-end gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                                                className="bi bi-power" viewBox="0 0 16 16">
-                                                <path d="M7.5 1v7h1V1z" />
-                                                <path
-                                                    d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812" />
-                                            </svg>
-                                            <span>
-                                                Sign Out
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </span>
-                        </li>
+
+                        { (location.pathname == route('brands.show')) 
+                            ? <NavBarUserOptions /> 
+                            : (location.pathname == route('brands.index')) 
+                                ? <NavBarUserOptions /> 
+                                : (location.pathname == route('categories.show')) 
+                                    ? <NavBarUserOptions /> 
+                                    : (location.pathname == route('categories.index')) 
+                                        ? <NavBarUserOptions /> 
+                                        : (location.pathname == route('cart')) 
+                                            ? <NavBarUserOptions /> 
+                                            : (location.pathname == route('paid')) 
+                                                ? <NavBarUserOptions /> 
+                                                : (location.pathname == route('products.show')) 
+                                                    ? <NavBarUserOptions /> 
+                                                    : (location.pathname == route('products.index')) 
+                                                        ? <NavBarUserOptions /> 
+                                                        : (location.pathname == route('index')) 
+                                                            ? <NavBarUserOptions /> 
+                                            : ''
+                        } 
+
                     </ul>
                 </nav>
 
-                <div className="mobile-nav cursor-pointer d-block d-md-none" id="mobile-nav">
+                <div 
+                    type="button" 
+                    className="mobile-nav cursor-pointer d-block d-md-none" 
+                    id="mobile-nav" 
+                    data-target="nav" 
+                    onClick={ () => setNavToggle(!navToggle) }>
                     <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="mobile-nav-icon bi bi-list text-white"
                         viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
+                        <path fillRule="evenodd"
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                     </svg>
                 </div>
@@ -159,7 +143,7 @@ export default function Header() {
 
             <section className="end-header pt-3">
                 <div className="search">
-                    <div className="search-container border border-dark" style="max-width: 375px;">
+                    <div className="search-container border border-dark" style={{ maxWidth: '375px' }}>
                         <span className="voice-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-mic-fill"
                                 viewBox="0 0 16 16">
@@ -175,7 +159,7 @@ export default function Header() {
                                 height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
-                                    stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
                             </svg>
                         </span>
                     </div>

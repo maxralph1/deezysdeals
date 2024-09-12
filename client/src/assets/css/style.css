@@ -158,7 +158,9 @@
 }
 
 .nav-scroller .nav {
-    display: flex;
+    display: flex; 
+    width: 77.5vw; 
+    margin: auto;
     gap: 3rem;
     flex-wrap: nowrap;
     padding-bottom: 1rem;
@@ -335,7 +337,7 @@ header .socials a:hover {
 .main-header .main-nav {
     /* z-index: 10000; */
     /* transition: all 3s; */
-    transition: display 1s;
+    transition: display 1s; 
 }
 
 .main-header .main-nav ul {
@@ -489,7 +491,8 @@ footer .shop-now a:focus {
 /** Main */
 
 main .grid.grid-order-reverse {
-    display: grid;
+    display: grid; 
+    row-gap: 3rem;
 }
 
 main .grid.grid-order-reverse aside {
@@ -706,7 +709,7 @@ main .testimonials .row .intro {
 }
 
 .dashboard-header .dashboard-navbar {
-    display: flex;
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 75px;
@@ -819,6 +822,12 @@ main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .statistics {
 
 main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .orders {
     grid-area: orders;
+}
+
+main .grid .main .dashboard-content .profile-form, 
+main .grid .dashboard-content .hero-form, 
+main .grid .dashboard-content .activities-form {
+    width: 100%;
 }
 
 
@@ -987,6 +996,12 @@ main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .orders {
 
     main .grid .aside.dashboard-aside {
         width: 65vw;
+    } 
+
+    main .grid .main .dashboard-content .profile-form, 
+    main .grid .dashboard-content .hero-form, 
+    main .grid .dashboard-content .activities-form {
+        width: 75%;
     }
 }
 
@@ -1188,6 +1203,12 @@ main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .orders {
             "statistics orders";
     }
 
+    main .grid .main .dashboard-content .profile-form, 
+    main .grid .dashboard-content .hero-form, 
+    main .grid .dashboard-content .activities-form {
+        width: 65%;
+    }
+
 }
 
 
@@ -1286,7 +1307,7 @@ main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .orders {
         display: block;
     }
 
-    footer .dashboard-bottom-mobile-nav {
+    .dashboard-bottom-mobile-nav {
         display: none;
     }
 
@@ -1350,5 +1371,11 @@ main .grid .main .dashboard-content .dashboard-boxes .line.line-2 .orders {
         grid-template-columns: 1fr 3fr;
         gap: 3rem;
         position: relative;
+    } 
+
+    main .grid .main .dashboard-content .profile-form, 
+    main .grid .dashboard-content .hero-form, 
+    main .grid .dashboard-content .activities-form {
+        width: 50%;
     }
 }

@@ -110,7 +110,7 @@ export default function Index() {
                 <h3 className="fw-semibold">New Arrivals</h3>
             
                 <div className="nav-scroller py-1 mb-3">
-                    <nav className="nav justify-content-between py-3">
+                    <nav className="nav justify-content-between py-3 w-100">
                         <a href="#" className="nav-item nav-link link-body-emphasis d-flex align-items-center gap-3">
                             <span className="title">Electronics</span>
                             <span>
