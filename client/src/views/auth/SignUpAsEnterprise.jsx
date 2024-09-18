@@ -6,13 +6,14 @@ import swal from 'sweetalert2';
 import Layout from '@/components/auth/Layout.jsx'; 
 
 
-export default function SignUp() { 
+export default function SignUpAsEnterprise() { 
     const [username, setUsername] = useState(''); 
     const [email, setEmail] = useState(''); 
     const [firstName, setFirstName] = useState(''); 
     const [lastName, setLastName] = useState(''); 
     const [password, setPassword] = useState(''); 
     const [passwordRepeat, setPasswordRepeat] = useState(''); 
+    const [enterpriseName, setEnterpriseName] = useState(''); 
     
     let { signUp } = useContext(AuthContext); 
 
@@ -29,9 +30,8 @@ export default function SignUp() {
             });
         } else if (password == passwordRepeat) { 
             let account_type; 
-            let enterpriseName;
-
-            signUp(username, email, firstName, lastName, password, account_type = 'individual', enterpriseName = '')
+            
+            signUp(username, email, firstName, lastName, password, account_type = 'enterprise', enterpriseName)
         }
     }
 
@@ -64,7 +64,7 @@ export default function SignUp() {
                             data-target="username" 
                             required />
                     </div>
-                </div>
+                </div> 
                 <div className="grid">
                     <div className="form border border-dark mb-3">
                         <label htmlFor="first_name" className="label">First Name:</label>
@@ -86,6 +86,19 @@ export default function SignUp() {
                             onChange={ e => setLastName(e.target.value) }
                             placeholder="e.g. Daezi"
                             data-target="last_name" 
+                            required />
+                    </div>
+                </div> 
+                <div className="">
+                    <div className="form border border-dark mb-3">
+                        <label htmlFor="enterpriseName" className="label">Enterprise Name:</label>
+                        <input 
+                            type="text" 
+                            name="enterpriseName" 
+                            id="enterpriseName" 
+                            onChange={ e => setEnterpriseName(e.target.value) }
+                            placeholder="e.g. Daezi GmbH" 
+                            data-target="enterpriseName" 
                             required />
                     </div>
                 </div> 
@@ -128,7 +141,7 @@ export default function SignUp() {
             </form>
 
             <section className="auth-options px-5 pt-3 gap-3 d-flex flex-column align-items-center gap-3"> 
-                <span className=""><Link to={ route('sign-up-as-enteprise')} className="text-dark fw-bold">Sign up as enterprise instead</Link></span> 
+                <span className=""><Link to={ route('sign-up')} className="text-dark fw-bold">Sign up as individual instead</Link></span> 
                 <span className=""><Link to={ route('sign-in')} className="text-dark fw-bold">Sign in</Link>&nbsp;if you already have an account</span> 
                 <span className="">Forgot your password?<Link to={ route('password-reset-request') } className="text-dark fw-bold">&nbsp;Reset Password</Link></span> 
             </section>

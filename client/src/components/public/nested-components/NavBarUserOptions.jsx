@@ -19,7 +19,7 @@ export default function NavBarUserOptions() {
                 </span>
     
                 <div id="user-options"
-                    className={`user-options position-absolute bg-white p-3 border border-1 rounded text-nowrap hidden`}
+                    className={`user-options position-absolute bg-white px-3 py-4 border border-1 border-radius-35 text-nowrap hidden box-shadow-1 fw-semibold`}
                     style={{ top: '40px', right: '0', display: userOptionsToggle && 'block' }}>
                     <ul className="list-unstyled d-flex flex-column gap-3">
                         <li className="text-dark">

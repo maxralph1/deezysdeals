@@ -1,17 +1,19 @@
-const passwordlessSignInMailTemplate = (userFound) => {
-    return `
-        <html>
-        <h1>You just requested for a passwordless sign in link</h1>
-        
-        <p>Click on the following <a href="${process.env.CLIENT_URL}/passwordless-signin/${userFound?.username}/${userFound?.auth_token}">link</a> to sign into your account.</p>
-        
-        <p>Please note that this link expires in 120 minutes.</p> 
+import ejs from 'ejs'; 
+import { fileURLToPath } from 'url'; 
+import { dirname, join } from 'path'; 
+const __dirname = dirname(fileURLToPath(import.meta.url)); 
+import sendMail from '../../mails/sendMail.js'; 
 
-        <p>This link can be used only once.</p>
 
-        <p>If you did not request for this link, kindly ignore this message. If you suspect that your account has been compromised, kindly report to the email address: report@${process.env.BASE_URL}</p> 
-        </html>
-        `;
+const passwordlessSignInMailTemplate = async (user) => { 
+    const mailSubject = `${process.env.APP_NAME + ': Passwordless Sign In Request'}`; 
+
+    const mailBody = await ejs.renderFile(join(__dirname, 'views', 'emails', 'passwordlessSignInEmailTemplate.ejs'), { 
+        user: `${user?.first_name} ${user?.last_name}`, 
+        signInLink: `${process.env.CLIENT_URL}/passwordless-signin/${user?.username}/${user?.auth_token}`
+    }); 
+
+    await sendMail(process.env.EMAIL_ADDRESS, user.email, mailSubject, mailBody); 
 };
 
 

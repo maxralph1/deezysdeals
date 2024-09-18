@@ -29,10 +29,10 @@ export const AuthProvider = ({ children }) => {
 
     /** Routes */ 
 
-    const signUp = async (username, email, firstname, lastname, enterpriseName, password, account_type) => {
-        await axios.post(`${ Constants?.serverURL }/api/v1/auth/sign-up`, { username, email, first_name: firstname, last_name: lastname, enterprise_name: enterpriseName, password, account_type })
+    const signUp = async (username, email, firstname, lastname, password, account_type, enterpriseName = '') => {
+        await axios.post(`${ Constants?.serverURL }/api/v1/auth/sign-up`, { username, email, first_name: firstname, last_name: lastname, password, account_type, enterprise_name: enterpriseName })
             .then((response) => { 
-                console.log(response); 
+                // console.log(response); 
                 navigate(route('sign-in')); 
                 swal.fire({
                     text: 'Registration successful. An email with a verification link has been sent to you.',  
@@ -43,14 +43,32 @@ export const AuthProvider = ({ children }) => {
                 })
             })
             .catch(error => { 
-                console.log(error); 
-                swal.fire({
-                    text: `${error}`, 
-                    color: '#900000', 
-                    width: 325, 
-                    position: 'top', 
-                    showConfirmButton: false
-                })
+                // console.log(error); 
+                if (error?.response?.status == '400') {
+                    swal.fire({
+                        text: `${error?.response?.status}: Something went wrong!`, 
+                        color: '#900000', 
+                        width: 325, 
+                        position: 'top', 
+                        showConfirmButton: false
+                    })
+                } else if (error?.response?.status == '409') {
+                    swal.fire({
+                        text: `${error?.response?.status}: Username / Email already taken`, 
+                        color: '#900000', 
+                        width: 325, 
+                        position: 'top', 
+                        showConfirmButton: false
+                    })
+                } else {
+                    swal.fire({
+                        text: `${error?.response?.status}: ${error?.response?.data?.message}`, 
+                        color: '#900000', 
+                        width: 325, 
+                        position: 'top', 
+                        showConfirmButton: false
+                    })
+                }
             });
     } 
 
@@ -62,13 +80,6 @@ export const AuthProvider = ({ children }) => {
                 setUser(jwtDecode(response?.data?.access)); 
                 localStorage?.setItem('deezysdeals_authTokens', JSON?.stringify(response?.data)); 
                 navigate(route('home.index')); 
-                swal.fire({
-                    text: 'Email verified!', 
-                    color: '#823c03', 
-                    width: 325, 
-                    position: 'top', 
-                    showConfirmButton: false
-                })
             })
             .catch(error => { 
                 // console.log(error); 
@@ -93,7 +104,7 @@ export const AuthProvider = ({ children }) => {
             });
     }
 
-    const signIn = async (email_username, password) => {
+    const signIn = async (email_username, password) => { 
         await axios.post(`${ Constants?.serverURL }/api/v1/auth/sign-in`, { email_username, password })
             .then((response) => { 
                     // console.log(response?.data);
@@ -130,7 +141,7 @@ export const AuthProvider = ({ children }) => {
     const passwordlessSignInRequest = async (username) => {
         await axios.post(`${ Constants.serverURL }/api/v1/auth/passwordless-signin-request`, { username })
             .then((response) => { 
-                console.log(response); 
+                // console.log(response); 
                 swal.fire({
                     text: `${response?.data?.success}`,
                     color: "#820303",
@@ -212,7 +223,7 @@ export const AuthProvider = ({ children }) => {
     const resetPasswordRequest = async (email) => {
         await axios.post(`${ Constants?.serverURL }/api/v1/auth/password-reset`, { email })
             .then(response => {
-                console.log(response); 
+                // console.log(response); 
                 swal.fire({
                     text: 'Email notification with reset link was sent to your email.', 
                     color: '#823c03', 
@@ -222,8 +233,8 @@ export const AuthProvider = ({ children }) => {
                 })
             })
             .catch(error => {
-                console.log(error); 
-                console.log(error?.response?.data?.message); 
+                // console.log(error); 
+                // console.log(error?.response?.data?.message); 
                 swal.fire({
                     // text: `${error?.response?.status}: Something went wrong!`, 
                     text: `${ error?.response?.data?.message }`, 
@@ -238,7 +249,8 @@ export const AuthProvider = ({ children }) => {
     const resetPassword = async (username, token, password) => {
         await axios.post(`${ Constants?.serverURL }/api/v1/auth/password-reset/${ username }/${ token }`, { password })
             .then(response => {
-                console.log(response); 
+                // console.log(response); 
+                navigate(route('sign-in')); 
                 swal.fire({
                     text: 'Password reset successful.', 
                     color: '#823c03', 
@@ -250,7 +262,7 @@ export const AuthProvider = ({ children }) => {
             .catch(error => {
                 console.log(error); 
                 swal.fire({
-                    text: `${error?.response?.status}: Something went wrong!`, 
+                    text: `${error?.response?.status}: ${error?.response?.data?.message}`, 
                     color: '#900000', 
                     width: 325, 
                     position: 'top', 

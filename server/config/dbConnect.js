@@ -8,7 +8,8 @@ const dbConnection = async () => {
     try {
         await connect(process.env.DATABASE_URI, {
             // useUnifiedTopology: true,
-            // useNewUrlParser: true
+            // useNewUrlParser: true, 
+            autoIndex: true
         })
     } catch (error) {
         console.error(error);

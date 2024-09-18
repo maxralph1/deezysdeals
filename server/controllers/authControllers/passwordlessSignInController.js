@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken'; 
 import User from '../../models/User.js'; 
 import passwordlessSignInMailTemplate from '../../mails/templates/passwordlessSignInMail.js'; 
-import sendMail from '../../mails/sendMail.js'; 
 
 
 const passwordlessSignInRequest = asyncHandler(async (req, res) => { 
@@ -33,10 +32,9 @@ const passwordlessSignInRequest = asyncHandler(async (req, res) => {
         }); 
 
     (async function () {
-        const mailSubject = "Passwordless Sign In Link";
-        const mailBody = passwordlessSignInMailTemplate(userFound); 
 
-        await sendMail(process.env.EMAIL_ADDRESS, userFound?.email, mailSubject, mailBody);
+        passwordlessSignInMailTemplate(userFound); 
+
     })();
 }); 
 

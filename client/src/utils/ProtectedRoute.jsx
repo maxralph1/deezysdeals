@@ -4,11 +4,11 @@ import AuthContext from '@/context/AuthContext.jsx';
 import { route } from '@/routes'; 
 
 
-const PrivateRoute = () => {
+const ProtectedRoute = () => {
     let { user } = useContext(AuthContext); 
 
     return user ? <Outlet /> : <Navigate to={ route('sign-in') } />; 
 }; 
 
 
-export default PrivateRoute; 
+export default ProtectedRoute; 

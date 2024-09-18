@@ -1,5 +1,5 @@
-const client = import.meta.env.VITE_API_CLIENT_URL;
-const server = import.meta.env.VITE_API_SERVER_URL;
+const client = import.meta.env.VITE_CLIENT_URL;
+const server = import.meta.env.VITE_SERVER_URL; 
 
 
 const Constants = {

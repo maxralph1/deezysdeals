@@ -1,8 +1,29 @@
-import { Link } from 'react-router-dom'; 
-import { route } from '@/routes'; 
+import { useContext } from 'react'; 
+import { useParams } from 'react-router-dom'; 
+import AuthContext from '@/context/AuthContext.jsx';
+import Layout from '@/components/protected/Layout.jsx'; 
 
-export default function PasswordlessSignIn() {
+export default function PasswordlessSignIn() { 
+  const { passwordlessSignIn } = useContext(AuthContext);
+  const params = useParams();
+  const username = params.username;
+  const token = params.token; 
+
+  passwordlessSignIn(username, token); 
+
   return (
-    <div>PasswordlessSignIn</div>
+    <Layout>
+      <div className="d-flex justify-content-center align-items-center gap-2" style={{ height: '80vh' }}>
+        <div className="spinner-grow text-warning" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </div>
+        <div className="spinner-grow text-warning" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </Layout>
   )
 }

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            /* color: #0056b3; */ 
+            font-size: larger;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .button {
+            background-color: #a76e28;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none; 
+            font-weight: bold;
+            /* border-radius: 35px; */
+            display: inline-block; 
+            transition: all 0.5s ease;
+        } 
+
+        .button:hover {
+            opacity: 0.5;
+        }
+
+        .email-link {
+            color: #a76e28;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome <%= user %>,</h1>
+
+        <p>We're excited to have you onboard!</p>
+        
+        <p>There is just one more step left to completing the signup process.</p>
+        
+        <p>Please, confirm your email by clicking on the "Confirm Email" button.</p>
+        
+        <p>Kindly note that this link expires in 120 minutes.</p> 
+
+        <br />
+
+        <p>
+            <a href="<%= verifyLink %>" class="button">Confirm Email</a>
+        </p> 
+
+        <br />
+        <br />
+
+        <p>Thanks,</p>
+        <p>DeezysDeals Team</p> 
+
+        <br />
+
+        <p><small>Questions, complaints or suggestions? Contact us at: <a href="mailto:customer@deezysdeals.com" class="email-link">customer@deezysdeals.com</a>.</small></p> 
+
+        <p>123 John Doe Boulevard, Boston, United States</p>
+
+        <p>&copy; 2024. DeezysDeals.</p>
+    </div>
+</body>
+
+</html>

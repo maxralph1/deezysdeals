@@ -22,7 +22,7 @@ const useAxios = () => {
         }
     }); 
 
-    axiosInstance?.interceptors?.request?.use(async req => {
+    axiosInstance.interceptors.request.use(async req => {
         const user = jwtDecode(authTokens?.access); 
         const isExpired = dayjs.unix(user?.exp).diff(dayjs()) < 1; 
 
@@ -44,7 +44,7 @@ const useAxios = () => {
         req;
     }); 
 
-    axiosInstance?.interceptors?.response?.use(
+    axiosInstance.interceptors.response.use(
         response => response, 
         error => {
             if (error?.response?.status === 401) navigate(route('sign-in')); 

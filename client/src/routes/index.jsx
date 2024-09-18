@@ -2,6 +2,7 @@ const routeNames = {
 
     /** Auth Routes */ 
     'sign-up': '/sign-up', 
+    'sign-up-as-enteprise': '/sign-up-as-enteprise', 
     'verify-email': '/verify-email/:username/:token', 
     'sign-in': '/sign-in', 
     'passwordless-signin': '/passwordless-signin/:username/:token', 
@@ -64,8 +65,6 @@ const routeNames = {
     // 'home.social-media.show': '/home/social-media/:id/show', 
     'home.social-media.edit': '/home/social-media/:id/edit', 
     'home.social-media.index': '/home/social-media', 
-
-    'home.settings.index': '/home/settings', 
 
     'home.index': '/home', 
 

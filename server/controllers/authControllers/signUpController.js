@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken'; 
 import User from '../../models/User.js'; 
 import registerEmailConfirmMailTemplate from '../../mails/templates/registerEmailConfirmMail.js'; 
-import sendMail from '../../mails/sendMail.js'; 
 
 
 const signUpUser = asyncHandler(async (req, res) => {
@@ -61,10 +60,9 @@ const signUpUser = asyncHandler(async (req, res) => {
         });
 
     (async function () {
-        const mailSubject = "New Account Registration";
 
-        const mailBody = registerEmailConfirmMailTemplate(user)
-        await sendMail(process.env.EMAIL_ADDRESS, user.email, mailSubject, mailBody);
+        registerEmailConfirmMailTemplate(user);
+        
     })();
 }); 
 

@@ -1,13 +1,19 @@
-const passwordResetMailTemplate = (user) => {
-    return `
-        <html>
-        <h1>Password reset message</h1>
-        
-        <p>Click on the following <a href="${process.env.CLIENT_URL}/password-reset/${user.username}/${user.password_reset_token}">link</a> to reset your password.</p>
+import ejs from 'ejs'; 
+import { fileURLToPath } from 'url'; 
+import { dirname, join } from 'path'; 
+const __dirname = dirname(fileURLToPath(import.meta.url)); 
+import sendMail from '../../mails/sendMail.js'; 
 
-        <p>Please note that this link expires in 10 minutes.</p>
-        </html>
-        `;
+
+const passwordResetMailTemplate = async (user) => { 
+    const mailSubject = `${process.env.APP_NAME + ': Password Reset Request'}`; 
+
+    const mailBody = await ejs.renderFile(join(__dirname, 'views', 'emails', 'passwordResetEmailTemplate.ejs'), {
+        user: `${user?.first_name} ${user?.last_name}`, 
+        passwordResetLink: `${process.env.CLIENT_URL}/password-reset/${user.username}/${user.password_reset_token}`
+    }); 
+
+    await sendMail(process.env.EMAIL_ADDRESS, user.email, mailSubject, mailBody); 
 };
 
 

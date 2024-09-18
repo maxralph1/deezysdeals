@@ -1,8 +1,7 @@
 import asyncHandler from 'express-async-handler'; 
 import jwt from 'jsonwebtoken'; 
 import User from '../../models/User.js'; 
-import passwordResetMailTemplate from '../../mails/templates/passwordResetMail.js';
-import sendMail from '../../mails/sendMail.js'; 
+import passwordResetMailTemplate from '../../mails/templates/passwordResetMail.js'; 
 
 
 const mailPasswordResetLink = asyncHandler(async (req, res) => { 
@@ -22,13 +21,10 @@ const mailPasswordResetLink = asyncHandler(async (req, res) => {
 
     await user.save();
 
-    const mailSubject = "Password Reset Request Link";
-    const mailBody = passwordResetMailTemplate(user);
-
-    await sendMail(process.env.EMAIL_ADDRESS, user.email, mailSubject, mailBody); 
+    await passwordResetMailTemplate(user); 
 
     res.status(200).json({ success: "Password reset link has been sent to your email if you have an account with us." });
-});
+}); 
 
 const verifyMailedPasswordResetLink = asyncHandler(async (req, res) => {
     const { username, token } = req?.params; 
