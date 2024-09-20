@@ -1,11 +1,12 @@
-import { useState } from 'react'; 
-import { Link, useLocation } from 'react-router-dom'; 
+import { useContext, useState } from 'react'; 
+import AuthContext from '@/context/AuthContext.jsx'; 
+import { Link } from 'react-router-dom'; 
 import { route } from '@/routes'; 
-import NavBarUserOptions from './nested-components/NavBarUserOptions';
+import NavBarUserOptions from './nested-components/NavBarUserOptions'; 
 
 
 export default function Header() { 
-    const location = useLocation();
+    const { user } = useContext(AuthContext); 
     const [navToggle, setNavToggle] = useState(true); 
     
     return (
@@ -13,7 +14,7 @@ export default function Header() {
             <section className="socials pt-2 pe-4">
                 <ul className="list-unstyled d-flex justify-content-end gap-3"> 
                     <li>
-                        <a href="#">
+                        <a href="http://www.tiktok.com/@deezysdeals" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-tiktok text-dark"
                                 viewBox="0 0 16 16">
                                 <path
@@ -22,7 +23,7 @@ export default function Header() {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.instagram.com/deezysdeals?igsh=MWd5ZGR3dnFvZzRuaQ==" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-instagram text-dark"
                                 viewBox="0 0 16 16">
                                 <path
@@ -31,7 +32,7 @@ export default function Header() {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://www.facebook.com/profile.php?id=61561516712053&mibextid=LQQJ4d" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-facebook text-dark"
                                 viewBox="0 0 16 16">
                                 <path
@@ -40,7 +41,14 @@ export default function Header() {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="https://youtu.be/wIDt6Yt2HDI?feature=shared" target="_blank">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube text-dark" viewBox="0 0 16 16">
+                                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+                            </svg>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="https://x.com/deezysdeals?s=21" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-twitter-x text-dark"
                                 viewBox="0 0 16 16">
                                 <path
@@ -89,40 +97,22 @@ export default function Header() {
                                     </svg>
                                 </span>
                             </Link>
-                        </li>
-                        <li className="fw-bold"> 
-                            <Link to={ route('sign-in') } className="text-decoration-none d-flex align-items-center justify-content-end">
-                                <span className="d-block d-md-none">
-                                    Sign In/Out
-                                </span>&nbsp; 
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-fill-lock"
-                                    viewBox="0 0 16 16">
-                                    <path
-                                        d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5v-1a2 2 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693Q8.844 9.002 8 9c-5 0-6 3-6 4m7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1" />
-                                </svg>
-                            </Link> 
                         </li> 
 
-                        { (location.pathname == route('brands.show')) 
+                        { user 
                             ? <NavBarUserOptions /> 
-                            : (location.pathname == route('brands.index')) 
-                                ? <NavBarUserOptions /> 
-                                : (location.pathname == route('categories.show')) 
-                                    ? <NavBarUserOptions /> 
-                                    : (location.pathname == route('categories.index')) 
-                                        ? <NavBarUserOptions /> 
-                                        : (location.pathname == route('cart')) 
-                                            ? <NavBarUserOptions /> 
-                                            : (location.pathname == route('paid')) 
-                                                ? <NavBarUserOptions /> 
-                                                : (location.pathname == route('products.show')) 
-                                                    ? <NavBarUserOptions /> 
-                                                    : (location.pathname == route('products.index')) 
-                                                        ? <NavBarUserOptions /> 
-                                                        : (location.pathname == route('index')) 
-                                                            ? <NavBarUserOptions /> 
-                                            : ''
-                        } 
+                                : <li className="fw-bold"> 
+                                    <Link to={ route('sign-in') } className="text-decoration-none d-flex align-items-center justify-content-end">
+                                        <span className="d-block d-md-none">
+                                            Sign In/Out
+                                        </span>&nbsp; 
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-person-fill-lock"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5v-1a2 2 0 0 1 .01-.2 4.49 4.49 0 0 1 1.534-3.693Q8.844 9.002 8 9c-5 0-6 3-6 4m7 0a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1" />
+                                        </svg>
+                                    </Link> 
+                                </li> }
 
                     </ul>
                 </nav>

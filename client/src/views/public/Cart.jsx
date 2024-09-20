@@ -92,7 +92,7 @@ export default function Cart() {
                                 </div>
                             </div> 
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                     <div className="modal-content"> 
                                         <div className="modal-header d-flex justify-content-end">
@@ -225,7 +225,7 @@ export default function Cart() {
                                 </div>
                             </div> 
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                     <div className="modal-content"> 
                                         <div className="modal-header d-flex justify-content-end">
@@ -358,7 +358,7 @@ export default function Cart() {
                                 </div>
                             </div> 
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                     <div className="modal-content"> 
                                         <div className="modal-header d-flex justify-content-end">
@@ -491,7 +491,7 @@ export default function Cart() {
                                 </div>
                             </div> 
 
-                            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                     <div className="modal-content"> 
                                         <div className="modal-header d-flex justify-content-end">

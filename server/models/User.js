@@ -56,8 +56,8 @@ const userSchema = new Schema({
         role: { 
             type: String, 
             required: true, 
-            enum: ['individual', 'enterprise', 'dual'], 
-            default: 'individual'
+            enum: ['admin', 'dispatcher', 'enterprise', 'individual'], 
+            default: 'individual' 
         }, 
         email_verify_token: String, 
         email_verified: Date, 

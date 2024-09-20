@@ -151,7 +151,7 @@ export const AuthProvider = ({ children }) => {
                 });
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 if (error?.response?.status == '401') {
                     swal.fire({
                         text: `${error?.response?.data?.message}`, 
@@ -216,7 +216,7 @@ export const AuthProvider = ({ children }) => {
                 console.log(error);
             })
             .finally(() => {
-                navigate(route('sign-in'));
+                // navigate(route('sign-in'));
             })
     } 
 
@@ -260,7 +260,7 @@ export const AuthProvider = ({ children }) => {
                 })
             })
             .catch(error => {
-                console.log(error); 
+                // console.log(error); 
                 swal.fire({
                     text: `${error?.response?.status}: ${error?.response?.data?.message}`, 
                     color: '#900000', 

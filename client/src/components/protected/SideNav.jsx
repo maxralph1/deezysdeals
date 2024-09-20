@@ -1,11 +1,18 @@
-import { useState } from 'react'; 
+import { useContext, useState } from 'react'; 
+import AuthContext from '@/context/AuthContext.jsx';
 import { Link, useLocation } from 'react-router-dom'; 
-import { route } from '@/routes';
+import { route } from '@/routes'; 
+import UserNoImage from '@/assets/images/user-icon.jpg'; 
 
 
 export default function SideNav() { 
+    const { user, signOut } = useContext(AuthContext); 
     const location = useLocation(); 
     const [sideNavToggle, setSideNavToggle] = useState(false); 
+
+    // Greeting
+    const date = new Date();
+    const hour = date.getHours();
 
     return ( 
         <>
@@ -13,13 +20,21 @@ export default function SideNav() {
                 <div className="py-3 px-4 d-flex flex-column gap-4">
                     <section id="aside-content" className="aside-content pt-3"> 
                         <div className="border-bottom d-flex flex-column">
-                            <span>Good afternoon</span>
+                            <span>Good&nbsp;
+                                { hour < 12 
+                                    ? 'morning' 
+                                        : hour < 16 
+                                        ? 'afternoon' 
+                                            : hour >= 16 
+                                            ? 'evening' 
+                                                : '' }
+                            </span>
                             <p className="fs-5 fw-semibold d-flex align-items-center gap-1 flex-wrap">
                                 <span>
-                                    <img src="https://plus.unsplash.com/premium_photo-1683140621573-233422bfc7f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="object-fit-cover border border-2 border-dark" style={{ width: '40px', height: '40px', borderRadius: '50px' }} alt="" />
+                                    <img src={ user?.user?.user_image ? user?.user?.user_image : UserNoImage } className="object-fit-cover border border-2 border-dark" style={{ width: '40px', height: '40px', borderRadius: '50px' }} alt="" />
                                 </span>
-                                <span>
-                                    Pae Daezi
+                                <span className="text-capitalize">
+                                    { user?.user?.first_name + ' ' + user?.user?.last_name }
                                 </span>
                             </p>
                         </div>
@@ -238,14 +253,17 @@ export default function SideNav() {
                             </ul>
                         </div> 
                         <div className="border-top py-3 ps-1">
-                            <a href="#" className="text-decoration-none text-dark sidenav-item p-2 ps-3 d-flex gap-1 align-items-center border-radius-35">
+                            <span 
+                                type='button' 
+                                onClick={ signOut } 
+                                className="text-dark sidenav-item p-2 ps-3 d-flex gap-1 align-items-center border-radius-35">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-power text-danger"
                                     viewBox="0 0 16 16">
                                     <path d="M7.5 1v7h1V1z"></path>
                                     <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
                                 </svg>
                                 <span className="fw-semibold fs-6 px-2 text-danger">Sign Out</span>
-                            </a>
+                            </span>
                         </div>
                     </section> 
                 </div> 

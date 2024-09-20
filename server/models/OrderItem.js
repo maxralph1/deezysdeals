@@ -1,19 +1,21 @@
-import mongoose from 'mongoose'; 
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema; 
 
-const paymentSchema = Schema({
+const orderItemSchema = new Schema({
         user: { type: Schema.Types.ObjectId, ref: 'User' }, 
+        product: { type: Schema.Types.ObjectId, ref: 'Product' }, 
         order: { type: Schema.Types.ObjectId, ref: 'Order' }, 
-        amount: { type: Number, required: true }, 
+        quantity: { type: Number }, 
+        price: { type: Number }, 
         deleted_at: { type: String, default: null }, 
         deleted_by: { type: Schema.Types.ObjectId, ref: 'User' }, 
     }, 
     {
         timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
     }
-); 
+);
 
 
-let Payment = mongoose.model("Payment", paymentSchema); 
-export default Payment; 
+let OrderItem = mongoose.model("OrderItem", orderItemSchema);
+export default OrderItem; 

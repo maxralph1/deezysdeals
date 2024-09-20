@@ -99,7 +99,10 @@ export default function SideBar() {
 
                             <hr />
 
-                            <li className="nav-item p-2 d-flex align-items-center cursor-pointer" onClick={ signOut }>
+                            <li 
+                                type='button' 
+                                onClick={ signOut }
+                                className="nav-item p-2 d-flex align-items-center cursor-pointer" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-door-closed-fill text-danger" viewBox="0 0 16 16">
                                     <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                 </svg> 
@@ -111,8 +114,8 @@ export default function SideBar() {
                         <div className="d-flex align-items-center gap-2">
                             <img src={ UserImage } alt="" width="40" height="40" className="object-fit-cover rounded-circle border border-2 border-secondary flat" />
                             <span className="d-flex flex-column">
-                                <span className="fw-semibold"><small>Pae Daezi</small></span>
-                                <span><small><small>@paedaezi</small></small></span>
+                                <span className="fw-semibold"><small>{ user?.user?.first_name + ' ' + user?.user?.last_name }</small></span>
+                                <span><small><small>@{ user?.user?.username }</small></small></span>
                             </span>
                         </div>
                     </footer>

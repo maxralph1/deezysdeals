@@ -3,8 +3,6 @@ const server = import.meta.env.VITE_SERVER_URL;
 
 
 const Constants = {
-    // clientURL: 'http://127.0.0.1:5174', 
-    // serverURL: 'http://127.0.0.1:5001', 
     clientURL: client, 
     serverURL: server, 
     amazonFirstURL: 'https://parazun-amazon-data.p.rapidapi.com',

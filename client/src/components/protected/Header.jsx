@@ -1,9 +1,12 @@
-import { useState } from 'react'; 
+import { useContext, useState } from 'react'; 
+import AuthContext from '@/context/AuthContext.jsx';
 import { Link } from 'react-router-dom'; 
 import { route } from '@/routes'; 
+import UserNoImage from '@/assets/images/user-icon.jpg'
 
 
-export default function Header() {
+export default function Header() { 
+    const { user, signOut } = useContext(AuthContext);
     const [navToggle, setNavToggle] = useState(false); 
 
     return (
@@ -80,15 +83,18 @@ export default function Header() {
                         </li> 
                         <li className="auth-user d-flex align-items-center gap-2">
                             <span id="user-icon" className="user">
-                                <img src="https://plus.unsplash.com/premium_photo-1683140621573-233422bfc7f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                <img src={ user?.user?.user_image ? user?.user?.user_image : UserNoImage }
                                     alt="" className="object-fit-cover border border-2" />
                             </span> 
                             <span className="d-flex flex-column">
-                                <span className="">Pae Daezi</span>
-                                <span className="fw-normal">@paedaezi</span>
+                                <span className="">{ user?.user?.first_name + ' ' + user?.user?.last_name }</span>
+                                <span className="fw-normal">@{ user?.user?.username }</span>
                             </span>
                         </li>
-                        <li className="sign-out text-danger d-flex align-items-center justify-content-end gap-1">
+                        <li 
+                            type='button' 
+                            onClick={ signOut } 
+                            className="sign-out text-danger d-flex align-items-center justify-content-end gap-1">
                             <span className="text d-block d-md-none">Sign Out</span>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-power text-danger"
