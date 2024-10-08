@@ -1,10 +1,15 @@
-import { Link } from 'react-router-dom'; 
+import { Link, useParams } from 'react-router-dom'; 
 import { route } from '@/routes'; 
+import { useProductExt } from '@/hooks/external/useFakeStoreProduct.jsx'; 
 import Aside from '@/components/public/Aside.jsx'; 
 import Layout from '@/components/public/Layout.jsx'; 
 
 
-export default function Product() {
+export default function Product() { 
+    const params = useParams(); 
+    const { productExt, getProductExt } = useProductExt(params?.id); 
+    console.log(productExt); 
+
     return (
         <Layout>
 
@@ -55,16 +60,12 @@ export default function Product() {
                                         </div>
                                         <div className="col-sm-12 col-md-7">
                                             <div className="card-body d-flex flex-column gap-0">
-                                                <h4 className="card-title fs-4">Portable Monitor 15.6inch FHD 1080P USB C HDMI
-                                                    Gaming Ultra-Slim IPS
-                                                    Display
-                                                    w/Smart Cover & Speakers,HDR Plug&Play,
-                                                    External Monitor for Laptop PC Phone Mac (15.6'' 1080P)</h4>
+                                                <h4 className="card-title fs-4 text-capitalize">{ productExt?.title }</h4>
                                                 <span className="card-text"><small>Options: <span className="fw-semibold">7
                                                             sizes</span></small></span>
                                                 <span className="card-text">10k+ bought in the last month</span>
                                                 <span className="card-text"><small><s>$86.99</s></small>&nbsp;<span
-                                                        className="fw-semibold fs-1">$79.99</span></span>
+                                                        className="fw-semibold fs-1">${ productExt?.price }</span></span>
                                                 <span className="card-text"><small><span
                                                             className="bg-success border-radius-35 px-2 py-1 text-white fw-semibold">Save
                                                             $15.00</span>&nbsp;with coupon</small></span>

@@ -6,7 +6,7 @@ import UserNoImage from '@/assets/images/user-icon.jpg'
 
 
 export default function Header() { 
-    const { user, signOut } = useContext(AuthContext);
+    const { user, signOut } = useContext(AuthContext); 
     const [navToggle, setNavToggle] = useState(false); 
 
     return (

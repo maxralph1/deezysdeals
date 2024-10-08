@@ -1,10 +1,36 @@
+import { useContext, useState } from 'react'; 
+import AuthContext from '@/context/AuthContext.jsx'; 
 import { Link } from 'react-router-dom'; 
 import { route } from '@/routes'; 
+import { useAddresses } from '@/hooks/useAddresses.jsx'; 
+import { useAddress } from '@/hooks/useAddress.jsx'; 
+import { useUser } from '@/hooks/useUser.jsx'; 
 import Layout from '@/components/protected/Layout.jsx'; 
 
 
-export default function Index() {
-    return (
+export default function Index() { 
+    const { user, signOut } = useContext(AuthContext); 
+    const { addresses, getAddresses } = useAddresses(); 
+    const { address, getAddress, createAddress, updateAddress, makeDefaultAddress } = useAddress(); 
+    const { retrievedUser, getUser, updateUser } = useUser(user?.user?.username); 
+    console.log(retrievedUser); 
+    console.log(user?.user?.username); 
+    // console.log(addresses); 
+
+    const handleUpdateProfile = async e => {
+        await updateUser(retrievedUser?.data);
+    }
+
+    const handleAddAddress  = async e => {
+        e.preventDefault(); 
+
+        await createAddress(address?.data); 
+        address?.setData(''); 
+
+        await getAddresses();
+    }; 
+
+    return ( 
         <Layout>
             <div className="main">
                 <div className="dashboard-content pt-3">
@@ -23,47 +49,84 @@ export default function Index() {
                                 </span>
                             </div>
                             <div className="d-flex flex-column">
-                                <h3>Pae Daezi</h3> 
-                                <span className="fw-semibold">@paedaezi</span>
-                                <span className="pt-0 mt-0">paedaezi@deezysdeals.com</span>
-                                <span className="pt-0 mt-0">I am here to shop the whole of America! Why don't you join me?</span>
+                                <h3>{ retrievedUser?.data?.first_name + ' ' + retrievedUser?.data?.last_name }</h3> 
+                                <span className="fw-semibold">@{ retrievedUser?.data?.username }</span>
+                                <span className="pt-0 mt-0">{ retrievedUser?.data?.email }</span> 
                             </div>
                         </section> 
 
                         <section className="pt-5"> 
-                            <form action="" id="profile-form" className="profile-form">
-                                <div className="row mb-3 gap-3">
-                                    <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
-                                        <label htmlFor="" className="label" id="first_name">First Name:</label>
-                                        <input type="text" value="Pae" placeholder="e.g. Pae" data-target="first_name" />
-                                    </div>
-                                    <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
-                                        <label htmlFor="" className="label" id="last_name">Last Name:</label>
-                                        <input type="text" value="Daezi" placeholder="e.g. Daezi" data-target="last_name" />
-                                    </div>
-                                </div> 
-                                <div className="row mb-3 gap-3">
-                                    <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
-                                        <label htmlFor="" className="label" id="email">Email:</label>
-                                        <input type="text" value="paedaezi@deezysdeals.com" placeholder="e.g. paedaezi@deezysdeals.com" data-target="email" />
-                                    </div>
-                                </div> 
-                                <div className="row mb-3 gap-3">
-                                    <div className="form border border-dark">
-                                        <label htmlFor="" className="label" id="password">Password:</label>
-                                        <input type="password" placeholder="*********" data-target="password" />
-                                    </div>
-                                    <div className="form border border-dark">
-                                        <label htmlFor="" className="label" id="repeat_password">Repeat Password:</label>
-                                        <input type="password" placeholder="*********" data-target="repeat_password" />
-                                    </div>
-                                </div> 
-                                <div className="row mb-3 gap-3">
-                                    <div className="form border border-dark">
-                                        <label htmlFor="" className="label" id="bio">Bio:</label>
-                                        <textarea className="label border-0" placeholder="Write your bio  ..." id="bio" style={{ height: '35px', width: '100%' }}></textarea>
-                                    </div>
-                                </div> 
+                            <form onSubmit={ handleUpdateProfile } id="profile-form" className="profile-form"> 
+                                <div className="fields">
+                                    <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                            <label htmlFor="" className="label" id="first_name">First Name:</label>
+                                            <input 
+                                                type="text" 
+                                                value={ retrievedUser?.data?.first_name ?? '' } 
+                                                onChange={ event => retrievedUser.setData({
+                                                    ...retrievedUser?.data,
+                                                    first_name: event.target.value,
+                                                }) }
+                                                placeholder="e.g. Pae" 
+                                                data-target="first_name" />
+                                        </div>
+                                    </div> 
+                                    <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                            <label htmlFor="" className="label" id="last_name">Last Name:</label>
+                                            <input 
+                                                type="text" 
+                                                value={ retrievedUser?.data?.last_name ?? '' } 
+                                                onChange={ event => retrievedUser.setData({
+                                                    ...retrievedUser?.data,
+                                                    last_name: event.target.value,
+                                                }) } 
+                                                placeholder="e.g. Daezi" 
+                                                data-target="last_name" />
+                                        </div>
+                                    </div> 
+                                    <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                            <label htmlFor="" className="label" id="email">Email:</label>
+                                            <input 
+                                                type="email" 
+                                                value={ retrievedUser?.data?.email ?? '' } 
+                                                onChange={ event => retrievedUser.setData({
+                                                    ...retrievedUser?.data,
+                                                    email: event.target.value,
+                                                }) } 
+                                                placeholder="e.g. paedaezi@deezysdeals.com" 
+                                                data-target="email" />
+                                        </div>
+                                    </div> 
+                                    <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                            <label htmlFor="" className="label" id="username-label">Username:</label>
+                                            <input type="text" defaultValue={ retrievedUser?.data?.username } placeholder="e.g. @paedaezi" data-target="username-label" disabled />
+                                        </div>
+                                    </div> 
+                                    {/* <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark">
+                                            <label htmlFor="" className="label" id="password">Password:</label>
+                                            <input 
+                                                type="password" 
+                                                value={ retrievedUser?.data?.password ?? '' } 
+                                                onChange={ event => retrievedUser.setData({
+                                                    ...retrievedUser?.data,
+                                                    password: event.target.value,
+                                                }) } 
+                                                placeholder="*********" 
+                                                data-target="password" />
+                                        </div>
+                                    </div> 
+                                    <div className="row mb-3 gap-3">
+                                        <div className="form border border-dark">
+                                            <label htmlFor="" className="label" id="repeat_password">Repeat Password:</label>
+                                            <input type="password" placeholder="*********" data-target="repeat_password" />
+                                        </div>
+                                    </div>  */}
+                                </div>
 
                                 <div className="pt-3 d-flex justify-content-end">
                                     <button type="submit" className="btn btn-dark px-3 border-radius-35">
@@ -78,6 +141,196 @@ export default function Index() {
                                     </button>
                                 </div>
                             </form>
+                        </section> 
+
+                        <section className="pt-5 pe-3">
+                            <h3 className="border-bottom pb-1 fs-5">Addresses (Shipping)</h3> 
+
+                            <section className="d-flex justify-content-end">
+                                <button type="button" className="btn btn-sm btn-dark px-3 border-radius-35" data-bs-toggle="modal" data-bs-target="#allModal">
+                                    Add New Address
+                                </button>
+
+                                <div className="modal fade" id="allModal" tabIndex="-1" aria-labelledby="allModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-header d-flex align-items-center justify-content-between">
+                                                <h3 className="modal-title fs-5 px-2" id="allModalLabel">Add New Address</h3>
+                                                <button type="button" className="border-0" data-bs-dismiss="modal" aria-label="Close">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                                                    </svg>
+                                                </button>
+                                            </div> 
+                                            <form onSubmit={ handleAddAddress }>
+                                                <div className="modal-body" style={{ paddingRight: '2rem', paddingLeft: '2rem' }}>
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="full_name">Full Name:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.full_name ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    full_name: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. Pae Daezi" 
+                                                                data-target="full_name" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="address_line_1">Address Line 1:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.address_line_1 ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    address_line_1: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. 123 Boulevard Street" 
+                                                                data-target="address_line_1" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="address_line_2">Address Line 2:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.address_line_2 ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    address_line_2: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. 123 Boulevard Street" 
+                                                                data-target="address_line_2" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="post_code">Post Code:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.post_code ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    post_code: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. 12345" 
+                                                                data-target="post_code" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="town_city">Town/City:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.town_city ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    town_city: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. Mountain View" 
+                                                                data-target="town_city" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="state_region">State/Region:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.state_region ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    state_region: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. Virginia" 
+                                                                data-target="state_region" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="country">Country:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.country ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    country: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. USA" 
+                                                                data-target="country" />
+                                                        </div>
+                                                    </div> 
+                                                    <div className="row mb-3 gap-3">
+                                                        <div className="form border border-dark col-sm-12 col-md-5 col-lg-6">
+                                                            <label htmlFor="" className="label" id="phone">Phone:</label>
+                                                            <input 
+                                                                type="text" 
+                                                                value={ address?.data?.phone ?? '' } 
+                                                                onChange={ event => address.setData({
+                                                                    ...address?.data,
+                                                                    phone: event.target.value,
+                                                                }) } 
+                                                                placeholder="e.g. +123456789" 
+                                                                data-target="phone" />
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="submit" className="border-0">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                                                        </svg>
+                                                    </button>
+                                                </div> 
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section> 
+
+                            <section className="address-boxes pt-4">
+                                <div class="row"> 
+                                    {(addresses?.data?.length > 0) && 
+                                        (addresses?.data?.sort((a, b) => (b?.default === true ? 1 : 0) - (a?.default === true ? 1 : 0))?.map((address, index) => { 
+                                        // if (address?.default == true) {
+                                            return (
+                                                <div key={ index } class="col-sm-6 mb-3">
+                                                    <div class="card box-shadow-1 border-radius-25 p-2"> 
+                                                        <div class="card-body d-flex flex-column gap-1"> 
+                                                            <div className="d-flex justify-content-between align-items-center flex-wrap pb-2">
+                                                                <span className="fw-semibold">#{ index + 1 }</span>
+                                                                { address?.default === false 
+                                                                    ? <span 
+                                                                            type="button" 
+                                                                            onClick={ async () =>{
+                                                                                await makeDefaultAddress(address); 
+                                                                                await getAddresses();
+                                                                            } }
+                                                                            className="btn btn-sm btn-secondary border-radius-35 py-0 fw-semibold">
+                                                                                Make Default
+                                                                        </span> 
+                                                                            : <span 
+                                                                                    className="btn btn-sm btn-success border-radius-35 py-0 fw-semibold">
+                                                                                        Default
+                                                                                </span> }
+                                                            </div>
+                                                            <h4 class="card-title fs-5">{ address?.full_name }</h4>
+                                                            <span class="card-text fw-semibold">{ address?.address_line_1 }</span>
+                                                            <span class="card-text">{ address?.address_line_2 }</span>
+                                                            <span class="card-text">{ address?.post_code }</span>
+                                                            <span class="card-text">{ address?.town_city }</span>
+                                                            <span class="card-text">{ address?.state_region }</span>
+                                                            <span class="card-text">{ address?.country }</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) 
+                                        // } 
+                                    }))}
+                                </div>
+                            </section>
                         </section>
                     </div>
                 </div> 

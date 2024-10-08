@@ -1,24 +1,29 @@
-import RatingChart from "./RatingChart";
+import { useOrders } from '@/hooks/useOrders.jsx'; 
+import RatingChart from './RatingChart';
 
-export default function DashboardBoxes() {
+
+export default function DashboardBoxes() { 
+    const { orders, getOrders } = useOrders(); 
+    console.log(orders); 
+
     return (
         <section className="dashboard-boxes d-flex flex-column gap-4">
             <div className="line line-1">
                 <section className="sales-purchase gap-4">
                     <div className="sales d-flex justify-content-between p-3 border-radius-25 box-shadow-1 bg-secondary text-white">
                         <div className="d-flex flex-column justify-content-between gap-2">
-                            <h2 className="fs-6">Total Sales</h2>
-                            <span className="fs-4 fw-semibold">$487,592.00</span>
+                            <h2 className="fs-6">Total Orders <span className="fw-semibold">({ orders?.count })</span></h2>
+                            <span className="fs-4 fw-semibold">${ (orders?.total_amount)?.toLocaleString('en') }</span>
                         </div>
             
                         <div className="d-flex flex-column justify-content-between align-items-end gap-2">
-                            <span className="menu cursor-pointer">
+                            {/* <span className="menu cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     className="bi bi-three-dots" viewBox="0 0 16 16">
                                     <path
                                         d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                                 </svg>
-                            </span>
+                            </span> */}
                             <span className="d-flex justify-content-end align-items-center gap-1 flex-wrap">
                                 <span className="badge rounded-pill text-bg-success">
                                     <span>

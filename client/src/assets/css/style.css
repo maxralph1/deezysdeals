@@ -622,7 +622,7 @@ main .testimonials .row .intro {
 
 .footer .cart-box {
     width: 275px;
-    height: 60vh;
+    max-height: 60vh;
     overflow-y: scroll;
     position: fixed;
     bottom: 35px;
@@ -639,7 +639,7 @@ main .testimonials .row .intro {
 .footer .cart-box .item-description {
     font-size: x-small;
 }
-
+ 
 .footer .cart-footer {
     /* position: relative;  */
     bottom: 75px;
@@ -656,7 +656,7 @@ main .testimonials .row .intro {
     right: 0;
 }
 
-.footer .cart-btn::after {
+/* .footer .cart-btn::after {
     content: '';
     background-color: orangered;
     position: absolute;
@@ -665,7 +665,7 @@ main .testimonials .row .intro {
     border-radius: 50px;
     top: -5px;
     left: -7px
-}
+} */
 
 .footer .footer-end {
     border-radius: 35px 35px 0 0;
@@ -828,6 +828,10 @@ main .grid .main .dashboard-content .profile-form,
 main .grid .dashboard-content .hero-form, 
 main .grid .dashboard-content .activities-form {
     width: 100%;
+} 
+
+main .grid .main .dashboard-content .profile-form .fields {
+    display: grid; 
 }
 
 
@@ -1203,10 +1207,16 @@ main .grid .dashboard-content .activities-form {
             "statistics orders";
     }
 
-    main .grid .main .dashboard-content .profile-form, 
+    /* main .grid .main .dashboard-content .profile-form,  */
     main .grid .dashboard-content .hero-form, 
     main .grid .dashboard-content .activities-form {
         width: 65%;
+    } 
+
+    main .grid .main .dashboard-content .profile-form .fields {
+        /* display: grid; */
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 2rem;
     }
 
 }
@@ -1373,7 +1383,7 @@ main .grid .dashboard-content .activities-form {
         position: relative;
     } 
 
-    main .grid .main .dashboard-content .profile-form, 
+    /* main .grid .main .dashboard-content .profile-form,  */
     main .grid .dashboard-content .hero-form, 
     main .grid .dashboard-content .activities-form {
         width: 50%;

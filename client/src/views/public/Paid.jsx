@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { route } from '@/routes'; 
 import Aside from '@/components/public/Aside.jsx'; 
 import Layout from '@/components/public/Layout.jsx'; 
-import PaginationLinks from '@/components/public/nested-components/PaginationLinks.jsx';
+
 
 export default function Paid() {
     return (

@@ -66,6 +66,10 @@ const routeNames = {
     'home.social-media.edit': '/home/social-media/:id/edit', 
     'home.social-media.index': '/home/social-media', 
 
+    'home.user-management.show': '/home/user-management/:username/show', 
+    'home.user-management.edit': '/home/user-management/:username/edit', 
+    'home.user-management.index': '/home/user-management', 
+
     'home.index': '/home', 
 
 
@@ -77,6 +81,7 @@ const routeNames = {
     'categories.index': '/categories', 
 
     'cart': '/cart', 
+    'pay': '/pay', 
     'paid': '/paid', 
 
     'products.show': '/products/:id/show', 
