@@ -50,6 +50,10 @@ import ProtectedInvoicesIndex from '@/views/protected/invoices/Index.jsx';
 import ProtectedNotificationsIndex from '@/views/protected/notifications/Index.jsx'; 
 
 import ProtectedOrderShow from '@/views/protected/orders/Show.jsx'; 
+
+import ProtectedOrderItemEdit from '@/views/protected/order-items/Edit.jsx'; 
+import ProtectedOrderItemsIndex from '@/views/protected/order-items/Index.jsx'; 
+
 import ProtectedOrderEdit from '@/views/protected/orders/Edit.jsx'; 
 import ProtectedOrdersIndex from '@/views/protected/orders/Index.jsx'; 
 
@@ -141,6 +145,9 @@ function App() {
 
                 <Route path={ route('home.notifications.index') } element={ <ProtectedNotificationsIndex /> } /> 
 
+                <Route path={ route('home.order-items.edit') } element={ <ProtectedOrderItemEdit /> } />
+                <Route path={ route('home.order-items.index') } element={ <ProtectedOrderItemsIndex /> } />
+
                 <Route path={ route('home.orders.show') } element={ <ProtectedOrderShow /> } />
                 <Route path={ route('home.orders.edit') } element={ <ProtectedOrderEdit /> } />
                 <Route path={ route('home.orders.index') } element={ <ProtectedOrdersIndex /> } /> 
@@ -168,9 +175,9 @@ function App() {
                 <Route path={ route('home.social-media.edit') } element={ <ProtectedSocialMediaEdit /> } /> 
                 <Route path={ route('home.social-media.index') } element={ <ProtectedSocialMediaIndex /> } /> 
 
-                <Route path={ route('home.user-management.show') } element={ <ProtectedUserManagementShow /> } />
-                <Route path={ route('home.user-management.edit') } element={ <ProtectedUserManagementEdit /> } />
-                <Route path={ route('home.user-management.index') } element={ <ProtectedUserManagementIndex /> } /> 
+                <Route path={ route('home.users.show') } element={ <ProtectedUserManagementShow /> } />
+                <Route path={ route('home.users.edit') } element={ <ProtectedUserManagementEdit /> } />
+                <Route path={ route('home.users.index') } element={ <ProtectedUserManagementIndex /> } /> 
 
                 <Route path={ route('home.index') } element={ <ProtectedIndex /> } />
               </Route> 

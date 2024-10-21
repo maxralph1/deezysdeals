@@ -126,6 +126,14 @@ export const AuthProvider = ({ children }) => {
                         position: 'top', 
                         showConfirmButton: false
                     })
+                } else if (error?.response?.status == '429') {
+                    swal.fire({
+                        text: `${error?.response?.data?.message}`, 
+                        color: '#900000', 
+                        width: 325, 
+                        position: 'top', 
+                        showConfirmButton: false
+                    })
                 } else {
                     swal.fire({
                         text: `${error?.response?.status}: Something went wrong!`, 

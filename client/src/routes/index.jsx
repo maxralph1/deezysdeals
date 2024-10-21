@@ -37,6 +37,9 @@ const routeNames = {
 
     'home.notifications.index': '/home/notifications', 
     
+    'home.order-items.edit': '/home/order-items/:id/edit', 
+    'home.order-items.index': '/home/order-items', 
+    
     'home.orders.show': '/home/orders/:id/show', 
     'home.orders.edit': '/home/orders/:id/edit', 
     'home.orders.index': '/home/orders', 
@@ -66,9 +69,9 @@ const routeNames = {
     'home.social-media.edit': '/home/social-media/:id/edit', 
     'home.social-media.index': '/home/social-media', 
 
-    'home.user-management.show': '/home/user-management/:username/show', 
-    'home.user-management.edit': '/home/user-management/:username/edit', 
-    'home.user-management.index': '/home/user-management', 
+    'home.users.show': '/home/users/:username/show', 
+    'home.users.edit': '/home/users/:username/edit', 
+    'home.users.index': '/home/user-management', 
 
     'home.index': '/home', 
 

@@ -11,6 +11,7 @@ const validatePhoneNumber = (phone) => {
 
 const addressSchema = new Schema({
         user: { type: Schema.Types.ObjectId, ref: 'User' }, 
+        default: { type: Boolean, default: false }, 
         full_name: { type: String, required: true }, 
         phone: { 
             type: String, 

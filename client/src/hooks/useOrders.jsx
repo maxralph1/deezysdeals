@@ -14,10 +14,13 @@ export function useOrders(page = 1, limit = 10) {
         }
     }, [page, limit]); 
 
-    async function getOrders(page, { signal } = {}) {
-        return axiosInstance.get(`orders?page=${page}&limit=${limit}`, { signal }) 
-            .then(response => setOrders(response?.data))
-            .catch(error => console.log(error));
+    async function getOrders(type = 'all', page = 1, { signal } = {}) {
+        return axiosInstance.get(`orders?type=${type}&page=${page}&limit=${limit}`, { signal }) 
+            .then(response => { 
+                console.log(response?.data)
+                setOrders(response?.data)
+            })
+            .catch(error => console.log(error)); 
     } 
 
     return { orders, getOrders }; 

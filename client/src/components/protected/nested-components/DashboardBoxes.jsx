@@ -3,7 +3,7 @@ import RatingChart from './RatingChart';
 
 
 export default function DashboardBoxes() { 
-    const { orders, getOrders } = useOrders(); 
+    const { orders } = useOrders(); 
     console.log(orders); 
 
     return (
@@ -12,18 +12,18 @@ export default function DashboardBoxes() {
                 <section className="sales-purchase gap-4">
                     <div className="sales d-flex justify-content-between p-3 border-radius-25 box-shadow-1 bg-secondary text-white">
                         <div className="d-flex flex-column justify-content-between gap-2">
-                            <h2 className="fs-6">Total Orders <span className="fw-semibold">({ orders?.count })</span></h2>
-                            <span className="fs-4 fw-semibold">${ (orders?.total_amount)?.toLocaleString('en') }</span>
+                            <h2 className="fs-6">Total Orders <span className="fw-semibold">({ orders?.meta?.total_results })</span></h2>
+                            <span className="fs-4 fw-semibold">${ (orders?.meta?.total_amount)?.toLocaleString('en') }</span>
                         </div>
             
                         <div className="d-flex flex-column justify-content-between align-items-end gap-2">
-                            {/* <span className="menu cursor-pointer">
+                            <span className="menu cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     className="bi bi-three-dots" viewBox="0 0 16 16">
                                     <path
                                         d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                                 </svg>
-                            </span> */}
+                            </span>
                             <span className="d-flex justify-content-end align-items-center gap-1 flex-wrap">
                                 <span className="badge rounded-pill text-bg-success">
                                     <span>
@@ -77,7 +77,7 @@ export default function DashboardBoxes() {
                 <div className="client-growth box-shadow-1 border-radius-25 p-3 d-flex flex-column gap-2">
                     <div>
                         <div className="d-flex align-items-center justify-content-between">
-                            <h2 className="fs-6">Client Growth</h2> 
+                            <h2 className="fs-6">Clients Volume</h2> 
                             <span className="menu cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots"
                                     viewBox="0 0 16 16">
@@ -93,6 +93,7 @@ export default function DashboardBoxes() {
                                 <li className="badge rounded-pill text-bg-secondary">24h</li>
                                 <li className="badge rounded-pill text-bg-secondary">A Week</li>
                                 <li className="badge rounded-pill text-bg-secondary">A Month</li>
+                                <li className="badge rounded-pill text-bg-secondary">All</li>
                             </ul>
                         </div>
                     </div>
@@ -123,7 +124,7 @@ export default function DashboardBoxes() {
             
                 <div className="customers-volume box-shadow-1 border-radius-25 p-3 d-flex flex-column justify-content-between gap-2">
                     <div className="d-flex align-items-center justify-content-between">
-                        <h2 className="fs-6">Customers Volume</h2>
+                        <h2 className="fs-6">Client Growth</h2>
                         <span className="menu cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots"
                                 viewBox="0 0 16 16">
@@ -135,11 +136,11 @@ export default function DashboardBoxes() {
 
                     <div className="d-flex flex-column">
                         <span className="fs-4 fw-semibold">120</span> 
-                        <span>New Customers</span>
+                        <span>New Clients</span>
                     </div> 
 
                     <div className="d-flex align-items-center justify-content-center gap-2">
-                        <span className="border border-1 border-secondary border-radius-35 px-3" style={{ fontSize: '0.75rem' }}>Customer volume increased</span>
+                        <span className="border border-1 border-secondary border-radius-35 px-3" style={{ fontSize: '0.75rem' }}>Client volume increased</span>
                         <span className="badge rounded-pill text-bg-success">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-up-right"

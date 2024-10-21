@@ -3,11 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema; 
 
 const categorySchema = new Schema({ 
-        id: { 
-            type: String, 
-            minLength: 1, 
-            unique: true 
-        },
+        added_by: { type: Schema.Types.ObjectId, ref: 'User' }, 
         name: { 
             type: String, 
             minLength: 1, 

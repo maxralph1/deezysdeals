@@ -14,7 +14,7 @@ export function useProducts(page = 1, limit = 10) {
         }
     }, [page, limit]); 
 
-    async function getProducts(page, { signal } = {}) {
+    async function getProducts(page = 1, { signal } = {}) {
         return axiosInstance.get(`products?page=${page}&limit=${limit}`, { signal }) 
             .then(response => setProducts(response?.data))
             .catch(error => console.log(error));

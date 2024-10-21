@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const brandSchema = new Schema({ 
         user: { type: Schema.Types.ObjectId, ref: 'User' }, 
-        title: { 
+        name: { 
             type: String, 
             maxLength: 245, 
             required: true 

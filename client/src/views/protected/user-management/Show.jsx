@@ -1,9 +1,26 @@
 import { useState } from 'react'; 
+import { useParams } from 'react-router-dom'; 
+import dayjs from 'dayjs';
+import relativeTime from "dayjs/plugin/relativeTime"; 
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(relativeTime);
+dayjs.extend(utc); 
+import { useUser } from '@/hooks/useUser.jsx'; 
+import scrollToTop from '@/utils/ScrollToTop.jsx'; 
+import First from '@/components/protected/nested-components/pagination-links/First.jsx'; 
+import Previous from '@/components/protected/nested-components/pagination-links/Previous.jsx'; 
+import Next from '@/components/protected/nested-components/pagination-links/Next.jsx'; 
+import Last from '@/components/protected/nested-components/pagination-links/Last.jsx'; 
 import Layout from '@/components/protected/Layout.jsx'; 
 
 
 export default function Show() { 
     const [activeLink, setActiveLink] = useState('deliveries'); 
+
+    const params = useParams(); 
+    const { user, getUser } = useUser(params?.username); 
+    
+    console.log(user); 
 
     return (
         <Layout>

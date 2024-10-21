@@ -4,34 +4,41 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
         user: { type: Schema.Types.ObjectId,  ref: 'User' }, 
-        order_items: [
-            {
-                name: { type: String, required: true },
-                quantity: { type: Number, required: true },
-                image: { type: String },
-                price: { type: Number, required: true },
-                product: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    required: true,
-                    ref: 'Product'
-                },
-            },
-        ], 
+        // order_items: [
+        //     {
+        //         name: { type: String, required: true },
+        //         quantity: { type: Number, required: true },
+        //         image: { type: String },
+        //         price: { type: Number, required: true },
+        //         product: {
+        //             type: mongoose.Schema.Types.ObjectId,
+        //             required: true,
+        //             ref: 'Product'
+        //         },
+        //     },
+        // ], 
         delivery_mode: { type: Schema.Types.ObjectId, ref: 'DeliveryMode' }, 
+        delivery_status: { 
+            type: String, 
+            required: true, 
+            enum: ['undelivered', 'delivered'], 
+            default: 'undelivered'
+        }, 
         payment_mode: { type: Schema.Types.ObjectId, ref: 'PaymentMode' }, 
-        order_key: { type: String, required: true },  
         billing_status: { 
             type: String, 
             required: true, 
-            enum: ['not-paid', 'pay-on-delivery', 'paid-with-cash', 'paid-with-card', 'paid-with-paypal'], 
-            default: 'not-paid'
-        },  
+            enum: ['unpaid', 'pay-on-delivery', 'paid-with-cash', 'paid-with-card', 'paid-with-paypal'], 
+            default: 'unpaid'
+        }, 
         total_to_be_paid: { type: Number }, 
         paid: { type: Boolean, default: false }, 
         total_paid: { type: Number }, 
         total_balance: { type: Number }, 
-        proposed_delivery_start_date: { type: Date },
-        proposed_delivery_destination_reach_date: { type: Date },
+        cancelled: { type: Boolean, default: false }, 
+        proposed_delivery_start_date: { type: Date }, 
+        proposed_delivery_destination_reach_date: { type: Date }, 
+        delivery_date: { type: Date }, 
         full_name: { 
             type: String, 
             required: true 
@@ -39,7 +46,6 @@ const orderSchema = new Schema({
         email: { 
             type: String,
             required: [true, 'Email address is required'], 
-            unique: true,
             validate: {
                 validator: function(email) {
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -51,7 +57,6 @@ const orderSchema = new Schema({
         phone: { 
             type: String, 
             required: [true, 'Phone number is required'], 
-            unique: true, 
             validate: {
                 validator: function(phone) {
                     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
@@ -69,8 +74,7 @@ const orderSchema = new Schema({
         address_line_2: { 
             type: String, 
             minLength: 3, 
-            maxLength: 245,
-            required: true 
+            maxLength: 245, 
         }, 
         post_code: { 
             type: String, 

@@ -1,15 +1,65 @@
+import { useState } from 'react'; 
 import { Link } from 'react-router-dom'; 
 import { route } from '@/routes'; 
+import dayjs from 'dayjs';
+import relativeTime from "dayjs/plugin/relativeTime"; 
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
+import { useOrders } from '@/hooks/useOrders.jsx'; 
+import First from '@/components/protected/nested-components/pagination-links/First.jsx'; 
+import Previous from '@/components/protected/nested-components/pagination-links/Previous.jsx'; 
+import Next from '@/components/protected/nested-components/pagination-links/Next.jsx'; 
+import Last from '@/components/protected/nested-components/pagination-links/Last.jsx'; 
 import Layout from '@/components/protected/Layout.jsx'; 
-import PaginationLinks from '@/components/protected/nested-components/PaginationLinks.jsx';
 
 
-export default function Index() {
+export default function Index() { 
+    // const [page, setPage] = useState(1); 
+    const [orderType, setOrderType] = useState('all'); 
+    const { orders, getOrders } = useOrders(); 
+    // console.log(orders); 
+
+    // const first_page = 1;
+    // const pageNumberForward = (orders?.meta?.current_page + 1 > orders?.meta?.total_pages) ? orders?.meta?.total_pages : orders?.meta?.current_page + 1;
+    // const pageNumberBackward = (orders?.meta?.current_page - 1 < first_page) ? first_page : orders?.meta?.current_page - 1;
+
     return (
         <Layout>
             <div className="main">
                 <div className="dashboard-content pt-3"> 
-                    <h2 className="border-bottom pb-1 fs-4">Orders</h2> 
+                    <h2 className="border-bottom pb-1 fs-4 d-flex justify-content-between align-items-center flex-wrap">
+                        <span>Orders</span> 
+                        <div className="fs-6 d-flex align-items-center gap-2">
+                            <span 
+                                type="button" 
+                                onClick={ async () => {
+                                    await getOrders('all', 1); 
+                                    setOrderType('all'); 
+                                } }
+                                className={`btn btn-sm ${(orderType == 'all') ? 'btn-secondary' : 'btn-outline-secondary'} border-radius-35 py-0 fw-semibold`}>
+                                    All
+                            </span>
+                            <span 
+                                type="button" 
+                                onClick={ async () => {
+                                    await getOrders('delivered', 1); 
+                                    setOrderType('delivered'); 
+                                } }
+                                className={`btn btn-sm ${(orderType == 'delivered') ? 'btn-secondary' : 'btn-outline-secondary'} border-radius-35 py-0 fw-semibold`}>
+                                    Delivered
+                            </span>
+                            <span 
+                                type="button" 
+                                onClick={ async () => {
+                                    await getOrders('undelivered', 1); 
+                                    setOrderType('undelivered'); 
+                                } }
+                                className={`btn btn-sm ${(orderType == 'undelivered') ? 'btn-secondary' : 'btn-outline-secondary'} border-radius-35 py-0 fw-semibold`}>
+                                    Undelivered
+                            </span>
+                        </div>
+                    </h2> 
 
                     <div className="d-flex justify-content-between flex-wrap gap-2"> 
                         <div className="search">
@@ -34,761 +84,237 @@ export default function Index() {
                                 </span>
                             </div>
                         </div>
-                        <span>1 - 10 of 500 (page 1 of 20)</span>
+                        <span>
+                            { ((orders?.meta?.current_page) > 1) 
+                                ? (((orders?.meta?.current_page - 1) * orders?.meta?.limit) + 1) 
+                                : orders?.meta?.current_page }
+                                    &nbsp;-&nbsp;
+                                { ((orders?.meta?.current_page * (orders?.meta?.limit)) > orders?.meta?.total_results) 
+                                    ? (orders?.meta?.total_results)
+                                        : ((orders?.meta?.current_page) != 1) 
+                                        ? (orders?.meta?.current_page * orders?.meta?.limit) 
+                                            : ((orders?.meta?.current_page + (orders?.meta?.limit - 1))) } 
+                                    &nbsp;of&nbsp; 
+                                { orders?.meta?.total_results } 
+                                &nbsp;(page { orders?.meta?.current_page } of { orders?.meta?.total_pages })
+                        </span> 
                     </div>
 
                     <section className="py-4">
                         <ul className="list-unstyled d-flex flex-column gap-5">
-                            <li className="box-shadow-1 border-radius-25 py-4 px-2 cursor-pointer">
-                                <div className="text-dark px-3">
-                                    <div className="d-flex justify-content-between align-items-center flex-wrap pb-2">
-                                        <span className="fw-semibold">#1</span>
-                                        <span 
-                                            type="button" 
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                            className="btn btn-sm btn-secondary border-radius-35 py-0 fw-semibold">
-                                                View Order Details
-                                        </span>
-                                    </div> 
-                                    <div className="amount-and-client">
-                                        <h3 className="fw-semibold">$240.25</h3> 
-                                        <p>By&nbsp;
-                                            <Link 
-                                                to={ route('home.clients.show', {username: 'daezi'}) } 
-                                                className="text-dark">
-                                                Pae Daezi
-                                            </Link>
-                                            &nbsp;from Boston, <small>2 days ago</small></p>
-                                    </div>
-                                    <section className="ordered-items pt-3" style={{ maxWidth: '600px' }}> 
-                                        <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                        <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                            <li className="ordered-item row align-items-center g-3 py-1">
-                                                <div className="col-md-2">
-                                                    <div id="carouselExample" className="carousel slide">
-                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                            <div className="images">
-                                                                <div className="carousel-item active">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                            </div> 
+                            { (orders?.data?.length > 1) && (orders?.data?.map((order, index) => {
+                                return (
+                                    <li key={order?._id} className="box-shadow-1 border-radius-25 py-4 px-2 cursor-pointer">
+                                        <div className="text-dark px-3">
+                                            <div className="d-flex justify-content-between align-items-center flex-wrap pb-2">
+                                                <span className="fw-semibold">#
+                                                    { (orders?.meta?.current_page != 1) 
+                                                        ? (((orders?.meta?.current_page - 1) * orders?.meta?.limit) + (index + 1))
+                                                        : orders?.meta?.current_page * (index + 1) }
+                                                </span>
+                                                <span 
+                                                    type="button" 
+                                                    data-bs-toggle="modal" data-bs-target={ `#order${order?._id}Modal` }
+                                                    className="btn btn-sm btn-secondary border-radius-35 py-0 fw-semibold">
+                                                        View Order Details
+                                                </span>
+                                            </div> 
+                                            <div className="amount-and-client">
+                                                <h3 className="fw-semibold">${ (order?.total_to_be_paid)?.toFixed(2) }</h3> 
+                                                <p>By&nbsp;
+                                                    <Link 
+                                                        to={ route('home.clients.show', { username: order?.user?.username }) } 
+                                                        className="text-dark">
+                                                        { order?.user?.first_name + ' ' + order?.user?.last_name }
+                                                    </Link>
+                                                    &nbsp;from { order?.state_region }, <small>{ dayjs.utc(order?.created_at).fromNow() }</small></p>
+                                            </div>
+                                            <section className="ordered-items pt-3" style={{ maxWidth: '600px' }}> 
+                                                <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
+                                                <ol className='list-unstyled d-flex flex-column gap-1'> 
+                                                    { (order?.orderItems?.length > 0) && (order?.orderItems?.slice(0,2)?.map((orderItem, index) => {
+                                                        return (
+                                                            <li key={ orderItem?._id } className="ordered-item row align-items-center g-3 py-1">
+                                                                <div className="col-md-2">
+                                                                    <div id={`carousel${orderItem?._id}Image`} className="carousel slide">
+                                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
+                                                                            <div className="images">
+                                                                                { (orderItem?.product?.images?.map((image, index) => {
+                                                                                    return (
+                                                                                        <div key={ index } className={`carousel-item ${ (index == 0) && `active`}`}>
+                                                                                            <img src={ image } style={{ width: '75px', height: '75px' }} alt="..." />
+                                                                                        </div>
+                                                                                    )
+                                                                                })) }
+                                                                            </div> 
 
-                                                            <div>
-                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Previous</span>
-                                                                </button>
-                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Next</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                                            <div>
+                                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target={`#carousel${orderItem?._id}Image`} data-bs-slide="prev">
+                                                                                    <span>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                    <span className="visually-hidden">Previous</span>
+                                                                                </button>
+                                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target={`#carousel${orderItem?._id}Image`} data-bs-slide="next">
+                                                                                    <span>
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                    <span className="visually-hidden">Next</span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-md-10">
+                                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
+                                                                        <h5>{ ((orderItem?.product?.title)?.length > 20) ? ((orderItem?.product?.title)?.slice(0,20) + ' ...') : orderItem?.product?.title }</h5>
+                                                                        <div className=""><small className="quantity">{ orderItem?.quantity }</small>&nbsp;x&nbsp;<span className="cost fw-semibold">${ (orderItem?.product?.retail_price) }</span></div>
+                                                                    </div>
+                                                                </div> 
+                                                            </li>
+                                                        )
+                                                    })) }
+                                                </ol> 
+                                                { (order?.orderItems?.length > 2) && 
+                                                (<span 
+                                                    type="button" 
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target={ `#order${order?._id}Modal` } 
+                                                    className="text-decoration-underline pt-4">
+                                                        <span className="fw-semibold">+{ order?.orderItems?.length - 2 }</span>
+                                                        &nbsp;other item{ ((order?.orderItems?.length - 2) > 1) && 's' }
+                                                </span>) }
+                                            </section>
+                                        </div> 
+
+                                        <div className="modal fade" id={ `order${order?._id}Modal` } tabIndex="-1" aria-labelledby={ `order${order?._id}ModalLabel` } aria-hidden="true">
+                                            <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                                <div className="modal-content">
+                                                    <div className="modal-header d-flex justify-content-end align-items-center gap-1">
+                                                        <h3 className="modal-title fs-5 d-none" id={ `order${order?._id}ModalLabel` }>Item name</h3>
+                                                        <button type="button" className="border-0" data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <section className="amount-and-client">
+                                                            <span>Ref:&nbsp;<span className="fw-semibold">#{ (order?._id)?.toUpperCase() }</span></span>
+                                                            <h3 className="fw-semibold">${ (order?.total_to_be_paid)?.toFixed(2) }</h3> 
+                                                            <p className="d-flex align-items-center" style={{ marginTop: '-0.5rem' }}>
+                                                                <span>Paid with</span>
+                                                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.vDMTOrQGXsCRn-XQj-IMuAHaCb%26pid%3DApi&f=1&ipt=b0a1976c6ae2a5d5b9c0b57c212a5d5de0cdff1be4f6eacacb44bf3d8c003d02&ipo=images" style={{ width: '50px' }} alt="" />
+                                                            </p>
+                                                            <p style={{ marginTop: '-0.5rem' }}>By&nbsp;
+                                                                <Link 
+                                                                    to={ route('home.clients.show', { username: order?.user?.username }) } 
+                                                                    className="text-dark">
+                                                                        { order?.user?.first_name + ' ' + order?.user?.last_name }
+                                                                </Link>
+                                                                &nbsp;from { order?.state_region }, <small>{ dayjs.utc(order?.created_at).fromNow() }</small>
+                                                            </p>
+                                                        </section> 
+
+                                                        <section className="ordered-items pt-1" style={{ maxWidth: '600px' }}> 
+                                                            <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
+                                                            <ol className='list-unstyled d-flex flex-column gap-1'> 
+                                                                { (order?.orderItems?.length > 0) && (order?.orderItems?.map(orderItem => {
+                                                                    return (
+                                                                        <li key={ orderItem?._id } className="ordered-item row align-items-center g-3 py-1">
+                                                                            <div className="col-md-2">
+                                                                                <div id={`carousel${orderItem?._id}ModalDetailImages`} className="carousel slide">
+                                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
+                                                                                        <div className="images"> 
+                                                                                            { (orderItem?.product?.images?.map((image, index) => {
+                                                                                                return (
+                                                                                                    <div key={ index } className={`carousel-item ${ (index == 0) && `active`}`}>
+                                                                                                        <img src={ image } style={{ width: '75px', height: '75px' }} alt="..." />
+                                                                                                    </div>
+                                                                                                )
+                                                                                            })) } 
+                                                                                        </div> 
+
+                                                                                        <div>
+                                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target={`#carousel${orderItem?._id}ModalDetailImages`} data-bs-slide="prev">
+                                                                                                <span>
+                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                                <span className="visually-hidden">Previous</span>
+                                                                                            </button>
+                                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target={`carousel${orderItem?._id}ModalDetailImages`} data-bs-slide="next">
+                                                                                                <span>
+                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                                                                                                    </svg>
+                                                                                                </span>
+                                                                                                <span className="visually-hidden">Next</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="col-md-10">
+                                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
+                                                                                    <h5>{ ((orderItem?.product?.title)?.length > 20) ? ((orderItem?.product?.title)?.slice(0,20) + ' ...') : orderItem?.product?.title }</h5>
+                                                                                    <div className=""><small className="quantity">{ orderItem?.quantity }</small>&nbsp;x&nbsp;<span className="cost fw-semibold">${ (orderItem?.product?.retail_price) }</span></div>
+                                                                                </div>
+                                                                            </div> 
+                                                                        </li>
+                                                                    )
+                                                                })) } 
+                                                            </ol> 
+                                                        </section>
+                                                    </div>
+                                                    <div className="modal-footer">
                                                     </div>
                                                 </div>
-                                                <div className="col-md-10">
-                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                        <h5>Hard Beans Brasil Espresso</h5>
-                                                        <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                    </div>
-                                                </div> 
-                                            </li>
-                                            <li className="ordered-item row align-items-center g-3 py-1">
-                                                <div className="col-md-2">
-                                                    <div id="carousel2Example" className="carousel slide">
-                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                            <div className="images"> 
-                                                                <div className="carousel-item active">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                            </div> 
-
-                                                            <div>
-                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel2Example" data-bs-slide="prev">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Previous</span>
-                                                                </button>
-                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel2Example" data-bs-slide="next">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Next</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-10">
-                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                        <h5>Chicken PepperSoup</h5>
-                                                        <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                    </div>
-                                                </div> 
-                                            </li>
-                                        </ol> 
-                                        <span 
-                                            type="button" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#exampleModal" 
-                                            className="text-decoration-underline pt-4">
-                                                <span className="fw-semibold">+2</span>
-                                                &nbsp;other items
-                                        </span>
-                                    </section>
-                                </div> 
-
-                                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                                        <div className="modal-content">
-                                            <div className="modal-header d-flex justify-content-end align-items-center gap-1">
-                                                <h3 className="modal-title fs-5 d-none" id="exampleModalLabel">Item name</h3>
-                                                <button type="button" className="border-0" data-bs-dismiss="modal" aria-label="Close">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div className="modal-body">
-                                                <section className="amount-and-client">
-                                                    <span>Ref:&nbsp;<span className="fw-semibold">#12ABVHC2654687852120</span></span>
-                                                    <h3 className="fw-semibold">$240.25</h3> 
-                                                    <p className="d-flex align-items-center" style={{ marginTop: '-0.5rem' }}>
-                                                        <span>Paid with</span>
-                                                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.vDMTOrQGXsCRn-XQj-IMuAHaCb%26pid%3DApi&f=1&ipt=b0a1976c6ae2a5d5b9c0b57c212a5d5de0cdff1be4f6eacacb44bf3d8c003d02&ipo=images" style={{ width: '50px' }} alt="" />
-                                                    </p>
-                                                    <p style={{ marginTop: '-0.5rem' }}>By&nbsp;
-                                                        <Link 
-                                                            to={ route('home.clients.show', {username: 'daezi'}) } 
-                                                            className="text-dark">
-                                                            Pae Daezi
-                                                        </Link>
-                                                        &nbsp;from Boston, <small>2 days ago</small>
-                                                    </p>
-                                                </section> 
-
-                                                <section className="ordered-items pt-1" style={{ maxWidth: '600px' }}> 
-                                                    <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                                    <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carouselModalExample" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images">
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carouselModalExample" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carouselModalExample" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Hard Beans Brasil Espresso</h5>
-                                                                    <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carouselModal2Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images"> 
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carouselModal2Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carouselModal2Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Chicken PepperSoup</h5>
-                                                                    <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carouselModal3Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images">
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carouselModal3Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carouselModal3Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Hard Beans Brasil Espresso</h5>
-                                                                    <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carouselModal4Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images"> 
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carouselModal4Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carouselModal4Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Chicken PepperSoup</h5>
-                                                                    <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                    </ol> 
-                                                </section>
-                                            </div>
-                                            <div className="modal-footer">
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li> 
-
-                            <li className="box-shadow-1 border-radius-25 py-4 px-2 cursor-pointer">
-                                <div className="text-dark px-3">
-                                    <div className="d-flex justify-content-between align-items-center flex-wrap pb-2">
-                                        <span className="fw-semibold">#2</span>
-                                        <span 
-                                            type="button" 
-                                            data-bs-toggle="modal" data-bs-target="#example2Modal"
-                                            className="btn btn-sm btn-secondary border-radius-35 py-0 fw-semibold">
-                                                View Order Details
-                                        </span>
-                                    </div> 
-                                    <div className="amount-and-client">
-                                        <h3 className="fw-semibold">$450.50</h3> 
-                                        <p>By&nbsp;
-                                            <Link 
-                                                to={ route('home.clients.show', {username: 'maxralph'}) } 
-                                                className="text-dark">
-                                                Max Ralph
-                                            </Link>
-                                            &nbsp;from Boston, <small>2 days ago</small></p>
-                                    </div>
-                                    <section className="ordered-items pt-3" style={{ maxWidth: '600px' }}> 
-                                        <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                        <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                            <li className="ordered-item row align-items-center g-3 py-1">
-                                                <div className="col-md-2">
-                                                    <div id="carousel2Item1Example" className="carousel slide">
-                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                            <div className="images">
-                                                                <div className="carousel-item active">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                            </div> 
-
-                                                            <div>
-                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel2Item1Example" data-bs-slide="prev">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Previous</span>
-                                                                </button>
-                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel2Item1Example" data-bs-slide="next">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Next</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-10">
-                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                        <h5>Hard Beans Brasil Espresso</h5>
-                                                        <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                    </div>
-                                                </div> 
-                                            </li>
-                                            <li className="ordered-item row align-items-center g-3 py-1">
-                                                <div className="col-md-2">
-                                                    <div id="carousel2Item2Example" className="carousel slide">
-                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                            <div className="images"> 
-                                                                <div className="carousel-item active">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                            </div> 
-
-                                                            <div>
-                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel2Item2Example" data-bs-slide="prev">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Previous</span>
-                                                                </button>
-                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel2Item2Example" data-bs-slide="next">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Next</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-10">
-                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                        <h5>Chicken PepperSoup</h5>
-                                                        <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                    </div>
-                                                </div> 
-                                            </li>
-                                        </ol> 
-                                    </section>
-                                </div> 
-
-                                <div className="modal fade" id="example2Modal" tabIndex="-1" aria-labelledby="example2ModalLabel" aria-hidden="true">
-                                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                                        <div className="modal-content">
-                                            <div className="modal-header d-flex justify-content-end align-items-center gap-1">
-                                                <h3 className="modal-title fs-5 d-none" id="exampleModalLabel">Item name</h3>
-                                                <button type="button" className="border-0" data-bs-dismiss="modal" aria-label="Close">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div className="modal-body">
-                                                <span>Ref:&nbsp;<span className="fw-semibold">#1287852120ABVHC26546</span></span>
-                                                <section className="amount-and-client">
-                                                    <h3 className="fw-semibold">$240.25</h3> 
-                                                    <p className="d-flex align-items-center" style={{ marginTop: '-1rem' }}>
-                                                        <span>Paid with</span>
-                                                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F009%2F469%2F637%2Foriginal%2Fpaypal-payment-icon-editorial-logo-free-vector.jpg&f=1&nofb=1&ipt=4c40b29681f959d75d7cbc4ca3777644fa53f22878e20eff9efe3945e013aa86&ipo=images" style={{ width: '50px' }} alt="" />
-                                                    </p>
-                                                    <p style={{ marginTop: '-0.5rem' }}>By&nbsp;
-                                                        <Link 
-                                                            to={ route('home.clients.show', {username: 'daezi'}) } 
-                                                            className="text-dark">
-                                                            Pae Daezi
-                                                        </Link>
-                                                        &nbsp;from Boston, <small>2 days ago</small>
-                                                    </p>
-                                                </section> 
-
-                                                <section className="ordered-items pt-1" style={{ maxWidth: '600px' }}> 
-                                                    <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                                    <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carousel2ModalItem1Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images"> 
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel2ModalItem1Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel2ModalItem1Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Chicken PepperSoup</h5>
-                                                                    <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carousel2ModalItem2Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images">
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel2ModalItem2Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel2ModalItem2Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Hard Beans Brasil Espresso</h5>
-                                                                    <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                    </ol> 
-                                                </section>
-                                            </div>
-                                            <div className="modal-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li> 
-
-                            <li className="box-shadow-1 border-radius-25 py-4 px-2 cursor-pointer">
-                                <div className="text-dark px-3">
-                                    <div className="d-flex justify-content-between align-items-center flex-wrap pb-2">
-                                        <span className="fw-semibold">#3</span>
-                                        <span 
-                                            type="button" 
-                                            data-bs-toggle="modal" data-bs-target="#example3Modal"
-                                            className="btn btn-sm btn-secondary border-radius-35 py-0 fw-semibold">
-                                                View Order Details
-                                        </span>
-                                    </div> 
-                                    <div className="amount-and-client">
-                                        <h3 className="fw-semibold">$150.50</h3> 
-                                        <p>By&nbsp;
-                                            <Link 
-                                                to={ route('home.clients.show', {username: 'maxralph'}) } 
-                                                className="text-dark">
-                                                Max Ralph
-                                            </Link>
-                                            &nbsp;from Boston, <small>2 days ago</small></p>
-                                    </div>
-                                    <section className="ordered-items pt-3" style={{ maxWidth: '600px' }}> 
-                                        <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                        <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                            <li className="ordered-item row align-items-center g-3 py-1">
-                                                <div className="col-md-2">
-                                                    <div id="carousel3Item1Example" className="carousel slide">
-                                                        <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                            <div className="images">
-                                                                <div className="carousel-item active">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                                <div className="carousel-item">
-                                                                    <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                </div>
-                                                            </div> 
-
-                                                            <div>
-                                                                <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel3Item1Example" data-bs-slide="prev">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Previous</span>
-                                                                </button>
-                                                                <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel3Item1Example" data-bs-slide="next">
-                                                                    <span>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <span className="visually-hidden">Next</span>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-10">
-                                                    <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                        <h5>Hard Beans Brasil Espresso</h5>
-                                                        <div className=""><small className="quantity">2</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$20.05</span></div>
-                                                    </div>
-                                                </div> 
-                                            </li>
-                                        </ol> 
-                                    </section>
-                                </div> 
-
-                                <div className="modal fade" id="example3Modal" tabIndex="-1" aria-labelledby="example3ModalLabel" aria-hidden="true">
-                                    <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                                        <div className="modal-content">
-                                            <div className="modal-header d-flex justify-content-end align-items-center gap-1">
-                                                <h3 className="modal-title fs-5 d-none" id="exampleModalLabel">Item name</h3>
-                                                <button type="button" className="border-0" data-bs-dismiss="modal" aria-label="Close">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div className="modal-body"> 
-                                                <span>Ref:&nbsp;<span className="fw-semibold">#12C2654687852BVH120A</span></span>
-                                                <section className="amount-and-client">
-                                                    <h3 className="fw-semibold">$150.50</h3> 
-                                                    <p className="d-flex align-items-center" style={{ marginTop: '-0.5rem' }}>
-                                                        <span>Paid with</span>&nbsp;
-                                                        <span className="fw-semibold">Cash</span>
-                                                    </p>
-                                                    <p style={{ marginTop: '-0.5rem' }}>By&nbsp;
-                                                        <Link 
-                                                            to={ route('home.clients.show', {username: 'daezi'}) } 
-                                                            className="text-dark">
-                                                            Pae Daezi
-                                                        </Link>
-                                                        &nbsp;from Boston, <small>2 days ago</small>
-                                                    </p>
-                                                </section> 
-
-                                                <section className="ordered-items pt-1" style={{ maxWidth: '600px' }}> 
-                                                    <h4 className="fw-semibold border-bottom pb-1 fs-6">Ordered Items</h4>
-                                                    <ol className='list-unstyled d-flex flex-column gap-1'> 
-                                                        <li className="ordered-item row align-items-center g-3 py-1">
-                                                            <div className="col-md-2">
-                                                                <div id="carousel3ModalItem1Example" className="carousel slide">
-                                                                    <div className="carousel-inner position-relative" style={{ width: '75px', height: '75px' }}>
-                                                                        <div className="images"> 
-                                                                            <div className="carousel-item active">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1678739395192-bfdd13322d34?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://plus.unsplash.com/premium_photo-1680390327010-09e627ebd475?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                            <div className="carousel-item">
-                                                                                <img src="https://images.unsplash.com/photo-1527385352018-3c26dd6c3916?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" className="d-block object-fit-cover rounded" style={{ width: '75px', height: '75px' }} alt="..." />
-                                                                            </div>
-                                                                        </div> 
-
-                                                                        <div>
-                                                                            <button className="carousel-control-prev position-absolute left-0 ps-2" type="button" data-bs-target="#carousel3ModalItem1Example" data-bs-slide="prev">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Previous</span>
-                                                                            </button>
-                                                                            <button className="carousel-control-next position-absolute right-0 pe-2" type="button" data-bs-target="#carousel3ModalItem1Example" data-bs-slide="next">
-                                                                                <span>
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" className="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                                                                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
-                                                                                    </svg>
-                                                                                </span>
-                                                                                <span className="visually-hidden">Next</span>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-10">
-                                                                <div className="d-flex align-items-center justify-content-between gap-1 flex-wrap">
-                                                                    <h5>Chicken PepperSoup</h5>
-                                                                    <div className=""><small className="quantity">3</small>&nbsp;x&nbsp;<span className="cost fw-semibold">$25.45</span></div>
-                                                                </div>
-                                                            </div> 
-                                                        </li>
-                                                    </ol> 
-                                                </section>
-                                            </div>
-                                            <div className="modal-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li> 
+                                    </li> 
+                                )
+                            }))}
                         </ul>
                     </section>
                 </div>
 
-                <PaginationLinks />
+                <section className="pagination-links py-5 d-flex justify-content-end gap-2 pe-2"> 
+                    <span 
+                        type="button" 
+                        onClick={ async () => {
+                            await getOrders(orderType, 1); 
+                        } }>
+                            <First /> 
+                    </span> 
+                    <span 
+                        type="button" 
+                        onClick={ async () => {
+                            await getOrders(orderType, ((orders?.meta?.current_page >= 1) ? (orders?.meta?.current_page - 1) : 1)); 
+                        } }>
+                            <Previous /> 
+                    </span> 
+                    <span 
+                        type="button" 
+                        onClick={ async () => {
+                            await getOrders(orderType, ((orders?.meta?.current_page < orders?.meta?.total_pages) ? (orders?.meta?.current_page + 1) : orders?.meta?.total_pages)); 
+                            // await getOrders(orderType, ((pageNumber > orders?.meta?.total_pages) ? orders?.meta?.total_pages : (pageNumber + 1))); 
+                        } }>
+                        <Next /> 
+                    </span> 
+                    <span 
+                        type="button" 
+                        onClick={ async () => {
+                            await getOrders(orderType, orders?.meta?.total_pages); 
+                        } }>
+                            <Last />
+                    </span>
+                </section>
             </div>
         </Layout>
     )

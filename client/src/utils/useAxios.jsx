@@ -12,7 +12,7 @@ const baseURL = `${ Constants?.serverURL }/api/v1`;
 
 const useAxios = () => {
     const navigate = useNavigate(); 
-    const { authTokens, setUser, setAuthTokens } = useContext(AuthContext); 
+    const { authTokens, setUser, setAuthTokens, signOut } = useContext(AuthContext); 
 
     const axiosInstance = axios.create({
         baseURL, 
@@ -47,7 +47,10 @@ const useAxios = () => {
     axiosInstance.interceptors.response.use(
         response => response, 
         error => {
-            if (error?.response?.status === 401) navigate(route('sign-in')); 
+            if (error?.response?.status === 401) { 
+                signOut();
+                navigate(route('sign-in'));
+            }; 
             return Promise.reject(error);
         }
     ) 
